@@ -1,0 +1,7 @@
+.profile__avatar {
+  width: 120px;
+  height: 120px;
+  background: url(../../../images/profile-image.jpg);
+  background-size: contain;
+  clip-path: ellipse(50% 50%);
+}
