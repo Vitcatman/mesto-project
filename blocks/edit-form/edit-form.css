@@ -1,0 +1,10 @@
+.edit-form {
+  max-width: 358px;
+  margin: auto;
+}
+
+@media screen and (max-width: 767px) {
+  .edit-form {
+    max-width: 238px;
+  }
+}

@@ -1,0 +1,12 @@
+.element__description {
+  max-width: 246px;
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 15px 19px 21px;
+}
+
+@media screen and (max-width: 767px) {
+  .element__description {
+    margin-bottom: 21px;
+  }
+}

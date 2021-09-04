@@ -2,7 +2,6 @@
   margin: 21px 0 21px 30px;
   display: grid;
   grid-template-columns: 1fr 24px;
-
 }
 
 @media screen and (max-width: 767px) {
