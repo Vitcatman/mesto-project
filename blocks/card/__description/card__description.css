@@ -1,4 +1,4 @@
-.element__description {
+.card__description {
   max-width: 246px;
   display: flex;
   justify-content: space-between;
@@ -6,7 +6,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .element__description {
+  .card__description {
     margin-bottom: 21px;
   }
 }

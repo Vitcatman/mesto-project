@@ -13,6 +13,8 @@
   text-align: center;
   color: #ffffff;
   transition: opacity 1s ease;
+  border: none;
+  cursor: pointer;
 }
 
 .edit-form__button:hover {
