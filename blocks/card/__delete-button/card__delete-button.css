@@ -1,7 +1,7 @@
-.card__like-button {
-  width: 22px;
-  height: 19px;
-  background: url(../../../images/card-like.svg);
+.card__delete-button {
+  width: 18px;
+  height: 19.3px;
+  background: url(../../../images/Trash.svg);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -9,8 +9,11 @@
   padding: 0;
   transition: opacity 1s ease;
   cursor: pointer;
+  position:absolute;
+  top: 20px;
+  right: 20px;
 }
 
-.card__like-button:hover {
+.card__delete-button:hover {
   opacity: 0.5;
 }

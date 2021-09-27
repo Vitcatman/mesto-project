@@ -3,5 +3,6 @@
   height: 120px;
   background: url(../../../images/profile-image.jpg);
   background-size: contain;
+  background-repeat: no-repeat;
   clip-path: ellipse(50% 50%);
 }
