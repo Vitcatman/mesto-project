@@ -11,38 +11,34 @@ const profileSubtitle = document.querySelector(".profile__subtitle");
 const nameInput = popupProfile.querySelector(".edit-form__item_element_name");
 const jobInput = popupProfile.querySelector(".edit-form__item_element_about");
 
-const popupOpen = function (popup) {
+const openPopup = function (popup) {
   popup.classList.add("popup_opened");
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubtitle.textContent;
 };
 
-const popupClose = function (popup) {
+const closePopup = function (popup) {
   popup.classList.remove("popup_opened");
 };
 
-const placePopupReset = function (popup) {
+const resetPlacePopup = function (popup) {
   popup.querySelector(".place-form").reset();
 };
 
-buttonProfileEdit.addEventListener("click", function () {
-  popupOpen(popupProfile);
-});
+function openProfilePopup() {
+  nameInput.value = profileTitle.textContent;
+  jobInput.value = profileSubtitle.textContent;
+  openPopup(popupProfile);
+}
 
-buttonProfileClose.addEventListener("click", function () {
-  popupClose(popupProfile);
-});
+buttonProfileEdit.addEventListener("click", () => openProfilePopup());
 
-buttonImageClose.addEventListener("click", function () {
-  popupClose(popupImage);
-});
+buttonProfileClose.addEventListener("click", () => closePopup(popupProfile));
 
-buttonPlaceAdd.addEventListener("click", function () {
-  popupOpen(popupPlace);
-});
+buttonImageClose.addEventListener("click", () => closePopup(popupImage));
+
+buttonPlaceAdd.addEventListener("click", () => openPopup(popupPlace));
 
 buttonPlaceClose.addEventListener("click", function () {
-  popupClose(popupPlace), placePopupReset(popupPlace);
+  closePopup(popupPlace), resetPlacePopup(popupPlace);
 });
 
 const formProfileElement = popupProfile.querySelector(".edit-form");
@@ -51,7 +47,7 @@ function submitProfileForm(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-  popupClose(popupProfile);
+  closePopup(popupProfile);
 }
 formProfileElement.addEventListener("submit", submitProfileForm);
 
@@ -65,7 +61,7 @@ function likeCard(evt) {
 const cardsList = document.querySelector(".cards");
 
 function createImagePopup(evt) {
-  popupOpen(popupImage);
+  openPopup(popupImage);
   popupImage.querySelector(".popup__picture").src =
   evt.target.closest(".card__image").currentSrc;
   popupImage.querySelector(".popup__picture").alt =
@@ -107,8 +103,8 @@ function submitPlaceForm(evt) {
   };
   const card = createCard(newCard);
   cardsList.prepend(card);
-  popupClose(popupPlace);
-  placePopupReset(popupPlace);
+  closePopup(popupPlace);
+  resetPlacePopup(popupPlace);
 }
 
 formPlaceElement.addEventListener("submit", submitPlaceForm);
