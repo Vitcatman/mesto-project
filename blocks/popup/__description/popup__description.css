@@ -1,4 +1,4 @@
-.image-popup__heading {
+.popup__description {
   max-width: 291px;
   font-style: normal;
   font-weight: normal;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 767px) {
-  .image-popup__heading {
+  .popup__description {
     max-width: 240px;
   }
 }
