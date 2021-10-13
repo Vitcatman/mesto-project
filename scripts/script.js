@@ -85,8 +85,7 @@ function createCard(cardData) {
 
 function addCard() {
   initialCards.forEach((element) => {
-    const card = createCard(element);
-    cardsList.append(card);
+    cardsList.append(createCard(element));
   });
 }
 addCard(initialCards);
@@ -101,8 +100,8 @@ function submitPlaceForm(evt) {
     name: placeInput.value,
     link: imageInput.value,
   };
-  const card = createCard(newCard);
-  cardsList.prepend(card);
+
+  cardsList.prepend(createCard(newCard));
   closePopup(popupPlace);
   resetPlacePopup(popupPlace);
 }
