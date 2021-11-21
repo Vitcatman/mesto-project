@@ -1,10 +1,10 @@
-.edit-form__button {
+.place-form__button {
   width: 358px;
   height: 50px;
   background: #000000;
   border-radius: 2px;
   padding: 0;
-  margin: 20px 0 0 0;
+  margin: 38px 0 0 0;
   box-sizing: border-box;
   font-style: normal;
   font-weight: normal;
@@ -17,12 +17,12 @@
   cursor: pointer;
 }
 
-.edit-form__button:hover {
+.place-form__button:hover {
   opacity: 0.8;
 }
 
 @media screen and (max-width: 767px) {
-  .edit-form__button {
+  .place-form__button {
     width: 238px;
     height: 46px;
     font-size: 14px;

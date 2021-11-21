@@ -3,14 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Место</title>
   </head>
   <body class="body">
     <div class="page">
       <header class="header">
         <a href="./"
-          ><img class="header__logo" src="./images/logo.svg" alt="логотип">
+          ><img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип">
         </a>
       </header>
       <main class="content">
@@ -64,28 +63,36 @@
             aria-label="закрыть"
           ></button>
           <h3 class="popup__heading">Редактировать профиль</h3>
-          <form class="edit-form" name="edit-form">
+          <form class="popup__form edit-form" name="edit-form" novalidate>
             <fieldset
               class="
-                edit-form__input-container edit-form__input-container_ctrl_texts
+                edit-form__input-container
               "
             >
               <input
                 type="text"
-                class="edit-form__item edit-form__item_element_name"
+                class="popup__input edit-form__item edit-form__item_element_name"
                 placeholder="Имя"
                 id="profile-name"
                 name="profile-name"
+                required
+                minlength="2"
+                maxlength="10"
               >
+              <span class="popup__form-error" id="profile-name-error"></span>
               <input
                 type="text"
-                class="edit-form__item edit-form__item_element_about"
+                class="popup__input edit-form__item edit-form__item_element_about"
                 placeholder="О себе"
                 id="profile-about"
                 name="profile-about"
+                required
+                minlength="2"
+                maxlength="200"
               >
+              <span class="popup__form-error" id="profile-about-error"></span>
             </fieldset>
-            <button class="edit-form__button" type="submit">Сохранить</button>
+            <button class="popup__submit-button edit-form__button" type="submit">Сохранить</button>
           </form>
         </div>
       </div>
@@ -97,29 +104,34 @@
             aria-label="закрыть"
           ></button>
           <h3 class="popup__heading">Новое место</h3>
-          <form class="place-form" name="place-form">
+          <form class="popup__form place-form" name="place-form" novalidate>
             <fieldset
               class="
                 place-form__input-container
-                place-form__input-container_ctrl_texts
               "
             >
               <input
                 type="text"
-                class="place-form__item place-form__item_el_name"
+                class="popup__input place-form__item place-form__item_el_name"
                 placeholder="Название"
                 id="place-name"
                 name="place-name"
+                minlength="2"
+                maxlength="30"
+                required
               >
+              <span class="popup__form-error" id="place-name-error"></span>
               <input
-                type="text"
-                class="place-form__item place-form__item_el_link"
+                type="url"
+                class="popup__input place-form__item place-form__item_el_link"
                 placeholder="Ссылка на картинку"
                 id="place-link"
                 name="place-link"
+                required
               >
+              <span class="popup__form-error" id="place-link-error"></span>
             </fieldset>
-            <button class="place-form__button" type="submit">Создать</button>
+            <button class="popup__submit-button place-form__button" type="submit">Создать</button>
           </form>
         </div>
       </div>
@@ -136,7 +148,5 @@
         </div>
       </div>
     </div>
-    <script src="scripts/initial-cards.js"></script>
-    <script src="scripts/script.js"></script>
   </body>
 </html>
