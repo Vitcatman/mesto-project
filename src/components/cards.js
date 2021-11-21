@@ -1,5 +1,5 @@
-import {createImagePopup} from "../components/modal.js";
-import {initialCards} from "../components/initial-cards.js";
+import { createImagePopup } from "../components/modal.js";
+import { initialCards } from "../components/initial-cards.js";
 
 const cardsList = document.querySelector(".cards");
 
@@ -9,7 +9,6 @@ function deleteCard(evt) {
 function likeCard(evt) {
   evt.target.classList.toggle("card__like-button_active");
 }
-
 
 function createCard(cardData) {
   const cardTemplate = document.querySelector(".card-template").content;
@@ -35,4 +34,4 @@ function addCard() {
 }
 addCard(initialCards);
 
-export {createCard, cardsList}
+export { createCard, cardsList };

@@ -1,5 +1,19 @@
-import {popupProfile, popupModal, nameInput, jobInput, profileTitle, profileSubtitle, popupPlace} from "../components/index.js";
-export {openPopup, closePopup, openProfilePopup, createImagePopup, resetPlacePopup};
+import {
+  popupProfile,
+  popupModal,
+  nameInput,
+  jobInput,
+  profileTitle,
+  profileSubtitle,
+  popupPlace,
+} from "../components/index.js";
+export {
+  openPopup,
+  closePopup,
+  openProfilePopup,
+  createImagePopup,
+  resetPlacePopup,
+};
 
 const popupImage = document.querySelector(".popup_type_image");
 
@@ -7,19 +21,22 @@ const openPopup = function (popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closeOnEsc);
   popupModal.forEach((element) => {
-    element.addEventListener("click", closeOnOverlay)});
+    element.addEventListener("click", closeOnOverlay);
+  });
 };
 
 function closePopup() {
   document.querySelector(".popup_opened").classList.remove("popup_opened");
   document.removeEventListener("keydown", closeOnEsc);
   popupModal.forEach((element) => {
-    element.removeEventListener("click", closeOnOverlay)});
+    element.removeEventListener("click", closeOnOverlay);
+  });
 }
 
 function closeOnEsc(evt) {
-  if (evt.key === "Escape") {closePopup(), resetPlacePopup(popupPlace)};
-
+  if (evt.key === "Escape") {
+    closePopup(), resetPlacePopup(popupPlace);
+  }
 }
 
 const resetPlacePopup = function (popup) {
@@ -33,7 +50,7 @@ function openProfilePopup() {
 }
 
 //закрытие по клику вне модального окна
-function  closeOnOverlay(evt) {
+function closeOnOverlay(evt) {
   if (evt.target === evt.currentTarget) {
     closePopup();
     resetPlacePopup(popupPlace);
@@ -49,5 +66,3 @@ function createImagePopup(evt) {
   popupImage.querySelector(".popup__description").textContent =
     evt.target.closest(".card__image").alt;
 }
-
-

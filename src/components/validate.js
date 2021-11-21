@@ -63,8 +63,6 @@ export const enableValidation = (config) => {
   });
 };
 
-
-
 export function disableValidation(inputList, config, formElement) {
   inputList.forEach((inputElement) => {
     const inputList = Array.from(
