@@ -1,15 +1,20 @@
-import { createImagePopup } from "../components/modal.js";
-import { initialCards } from "../components/initial-cards.js";
+import { popupImage } from "../components/index.js";
+import { openPopup } from "../components/modal.js";
 
 const cardsList = document.querySelector(".cards");
+const zoomImg = document.querySelector(".popup__picture");
 
+//Удаление карточки
 function deleteCard(evt) {
   evt.target.closest(".card").remove();
 }
+
+//Лайк карточки
 function likeCard(evt) {
   evt.target.classList.toggle("card__like-button_active");
 }
 
+//Создание новой карточки
 function createCard(cardData) {
   const cardTemplate = document.querySelector(".card-template").content;
   const cardElement = cardTemplate.cloneNode(true);
@@ -23,15 +28,18 @@ function createCard(cardData) {
   cardElement
     .querySelector(".card__delete-button")
     .addEventListener("click", deleteCard);
-  cardImage.addEventListener("click", createImagePopup);
+  cardImage.addEventListener("click", function () {
+    showImagePopup(cardData.link, cardData.name);
+  });
   return cardElement;
 }
 
-function addCard() {
-  initialCards.forEach((element) => {
-    cardsList.append(createCard(element));
-  });
+//открытие попапа с фотографией
+function showImagePopup(cardLink, cardName) {
+  zoomImg.src = cardLink;
+  zoomImg.alt = cardName;
+  popupImage.querySelector(".popup__description").textContent = cardName;
+  openPopup(popupImage);
 }
-addCard(initialCards);
 
 export { createCard, cardsList };
