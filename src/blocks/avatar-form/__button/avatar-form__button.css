@@ -1,10 +1,10 @@
-.place-form__button {
+.avatar-form__button {
   width: 358px;
   height: 50px;
   background: #000000;
   border-radius: 2px;
   padding: 0;
-  margin: 38px 0 27px 0;
+  margin: 28px 0 0 0;
   box-sizing: border-box;
   font-style: normal;
   font-weight: normal;
@@ -17,12 +17,12 @@
   cursor: pointer;
 }
 
-.place-form__button:hover {
+.avatar-form__button:hover {
   opacity: 0.8;
 }
 
 @media screen and (max-width: 767px) {
-  .place-form__button {
+  .avatar-form__button {
     width: 238px;
     height: 46px;
     font-size: 14px;

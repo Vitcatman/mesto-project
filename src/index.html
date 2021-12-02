@@ -15,7 +15,10 @@
       <main class="content">
         <section class="profile">
           <div class="profile__container">
-            <div class="profile__avatar" role="img"></div>
+            <div class="profile__avatar-container">
+             <img class="profile__avatar" src="<%=require('./images/profile-image.jpg')%>" alt="аватар">
+             <button class="profile__avatar-edit" type="button" aria-label="изменить аватар"></button>
+            </div>
             <div class="profile__info">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
               <button
@@ -43,11 +46,14 @@
             ></button>
             <div class="card__description">
               <h2 class="card__title"></h2>
+             <div class="card__like-container">
               <button
                 type="button"
                 class="card__like-button"
                 aria-label="нравится"
               ></button>
+              <span class="card__like-count">6</span>
+             </div>
             </div>
           </article>
         </template>
@@ -135,6 +141,39 @@
           </form>
         </div>
       </div>
+
+      <div class="popup popup_type_avatar-add">
+        <div class="popup__container">
+          <button
+            class="popup__close-button popup__close-button_type_avatar"
+            type="button"
+            aria-label="закрыть"
+          ></button>
+          <h3 class="popup__heading">Обновить аватар</h3>
+          <form class="popup__form avatar-form" name="avatar-form" novalidate>
+            <fieldset
+              class="
+                avatar-form__input-container
+              "
+            >
+              <input
+                type="url"
+                class="popup__input avatar-form__item"
+                placeholder="Ссылка на картинку"
+                id="avatar-link"
+                name="avatar-link"
+                required
+              >
+              <span class="popup__form-error" id="avatar-link-error"></span>
+            </fieldset>
+            <button class="popup__submit-button avatar-form__button" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+
+
+
+
       <div class="popup popup_type_image">
         <div class="popup__picture-block">
           <img class="popup__picture" src="#" alt="#">

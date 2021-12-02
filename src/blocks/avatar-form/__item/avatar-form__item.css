@@ -1,0 +1,21 @@
+.avatar-form__item {
+  width: 358px;
+  padding: 0 0 10px;
+  margin: 0;
+  border: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  border-bottom: 1px solid RGBA(0, 0, 0, 0.2);
+  font-size: 14px;
+  line-height: 17px;
+}
+
+@media screen and (max-width: 767px) {
+  .avatar-form__item {
+    width: 238px;
+    font-style: normal;
+    font-weight: normal;
+    color: #000000;
+  }
+}

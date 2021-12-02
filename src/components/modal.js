@@ -4,7 +4,8 @@ import {
   jobInput,
   profileTitle,
   profileSubtitle,
-  popupImage
+  popupImage,
+  popupAvatar,
 } from "../components/index.js";
 
 //открытие попапа

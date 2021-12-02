@@ -63,11 +63,11 @@ export const enableValidation = (config) => {
   });
 };
 
-export function disableValidation(inputList, config, formElement) {
+export function disableValidation(config, formElement) {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
   inputList.forEach((inputElement) => {
-    const inputList = Array.from(
-      formElement.querySelectorAll(config.inputSelector)
-    );
     const submitButton = formElement.querySelector(config.submitButtonSelector);
     hideInputError(inputElement, formElement, config);
     toggleButtonState(submitButton, inputList, config);
