@@ -7,8 +7,13 @@ import {
   resetPlacePopup,
 } from "../components/modal.js";
 import "../pages/index.css";
-import  {loadProfile, loadCards, editProfile, addNewCard, updateAvatar} from "./api.js";
-
+import {
+  loadProfile,
+  loadCards,
+  editProfile,
+  addNewCard,
+  updateAvatar,
+} from "./api.js";
 
 const popupProfile = document.querySelector(".popup_type_profile");
 const popupPlace = document.querySelector(".popup_type_place-add");
@@ -56,26 +61,25 @@ const config = {
 };
 
 Promise.all([loadCards(), loadProfile()])
-.then(([cards, profile]) =>{
-  cards.forEach((card) => {
-    cardsList.append(createCard(card,profile));
+  .then(([cards, profile]) => {
+    cards.forEach((card) => {
+      cardsList.append(createCard(card, profile));
+    });
+    profileTitle.textContent = profile.name;
+    profileSubtitle.textContent = profile.about;
+    profileAvatar.src = profile.avatar;
+    user = profile;
+  })
+  .catch((err) => {
+    console.log(err);
   });
-  profileTitle.textContent = profile.name;
-  profileSubtitle.textContent = profile.about;
-  profileAvatar.src = profile.avatar;
-  user=profile;
-})
-.catch((err) => {
-  console.log(err);
-});
-
 
 buttonProfileEdit.addEventListener("click", function () {
   openProfilePopup(), disableValidation(config, popupProfile);
 });
 
 buttonAvatarEdit.addEventListener("click", function () {
-  openPopup(popupAvatar), disableValidation(config, popupAvatar) ;
+  openPopup(popupAvatar), disableValidation(config, popupAvatar);
 });
 
 buttonProfileClose.addEventListener("click", () => closePopup(popupProfile));
@@ -95,40 +99,41 @@ buttonPlaceClose.addEventListener("click", function () {
 //сабмит формы редактирования профиля
 function submitProfileForm(evt) {
   evt.preventDefault();
-  profileSubmitButton.textContent = 'Сохранение...';
-  editProfile(nameInput.value,jobInput.value)
-  .then((profile) =>{
-  profileTitle.textContent = profile.name;
-  profileSubtitle.textContent = profile.about;
-})
-.catch((err) => {
-  console.log(err)
-})
-.finally(() => {profileSubmitButton.textContent = 'Сохранить'})
-closePopup(popupProfile);
-};
-
+  profileSubmitButton.textContent = "Сохранение...";
+  editProfile(nameInput.value, jobInput.value)
+    .then((profile) => {
+      profileTitle.textContent = profile.name;
+      profileSubtitle.textContent = profile.about;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      profileSubmitButton.textContent = "Сохранить";
+    });
+  closePopup(popupProfile);
+}
 
 //сабмит формы смены аватара
 function submitAvatarForm(evt) {
   evt.preventDefault();
-  avatarSubmitButton.textContent = 'Сохранение...';
+  avatarSubmitButton.textContent = "Сохранение...";
   updateAvatar(avatarInput.value)
-
-  .then((res) =>{
-    profileAvatar.src = res.avatar;
-})
-.catch((err) => {
-  console.log(err)
-})
-.finally(() => {avatarSubmitButton.textContent = 'Сохранить'})
-closePopup(popupAvatar);
-};
-
+    .then((res) => {
+      profileAvatar.src = res.avatar;
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      avatarSubmitButton.textContent = "Сохранить";
+    });
+  closePopup(popupAvatar);
+}
 
 //закрытие по клику вне модального окна
 popupModal.forEach((element) => {
-  element.addEventListener("click", function(evt){
+  element.addEventListener("click", function (evt) {
     if (evt.target === evt.currentTarget) {
       closePopup(evt.target);
     }
@@ -140,14 +145,17 @@ formProfileElement.addEventListener("submit", submitProfileForm);
 //сабмит формы добавления новой карточки с местом
 function submitPlaceForm(evt) {
   evt.preventDefault();
-  placeSubmitButton.textContent = 'Создание...';
-  addNewCard(placeInput.value,imageInput.value)
-  .then((res) => {cardsList.prepend(createCard(res, user));
-  closePopup(popupPlace);
-  resetPlacePopup(popupPlace);
-})
-.catch((err) => console.log(err))
-.finally(() => {placeSubmitButton.textContent = 'Создать'})
+  placeSubmitButton.textContent = "Создание...";
+  addNewCard(placeInput.value, imageInput.value)
+    .then((res) => {
+      cardsList.prepend(createCard(res, user));
+      closePopup(popupPlace);
+      resetPlacePopup(popupPlace);
+    })
+    .catch((err) => console.log(err))
+    .finally(() => {
+      placeSubmitButton.textContent = "Создать";
+    });
 }
 
 formPlaceElement.addEventListener("submit", submitPlaceForm);

@@ -2,22 +2,34 @@
 <html lang="ru" class="html">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Место</title>
   </head>
   <body class="body">
     <div class="page">
       <header class="header">
         <a href="./"
-          ><img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип">
+          ><img
+            class="header__logo"
+            src="<%=require('./images/logo.svg')%>"
+            alt="логотип"
+          />
         </a>
       </header>
       <main class="content">
         <section class="profile">
           <div class="profile__container">
             <div class="profile__avatar-container">
-             <img class="profile__avatar" src="<%=require('./images/profile-image.jpg')%>" alt="аватар">
-             <button class="profile__avatar-edit" type="button" aria-label="изменить аватар"></button>
+              <img
+                class="profile__avatar"
+                src="<%=require('./images/profile-image.jpg')%>"
+                alt="аватар"
+              />
+              <button
+                class="profile__avatar-edit"
+                type="button"
+                aria-label="изменить аватар"
+              ></button>
             </div>
             <div class="profile__info">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -38,7 +50,7 @@
         <section class="cards"></section>
         <template class="card-template">
           <article class="card">
-            <img class="card__image">
+            <img class="card__image" />
             <button
               type="button"
               class="card__delete-button"
@@ -46,14 +58,14 @@
             ></button>
             <div class="card__description">
               <h2 class="card__title"></h2>
-             <div class="card__like-container">
-              <button
-                type="button"
-                class="card__like-button"
-                aria-label="нравится"
-              ></button>
-              <span class="card__like-count">6</span>
-             </div>
+              <div class="card__like-container">
+                <button
+                  type="button"
+                  class="card__like-button"
+                  aria-label="нравится"
+                ></button>
+                <span class="card__like-count">6</span>
+              </div>
             </div>
           </article>
         </template>
@@ -70,35 +82,42 @@
           ></button>
           <h3 class="popup__heading">Редактировать профиль</h3>
           <form class="popup__form edit-form" name="edit-form" novalidate>
-            <fieldset
-              class="
-                edit-form__input-container
-              "
-            >
+            <fieldset class="edit-form__input-container">
               <input
                 type="text"
-                class="popup__input edit-form__item edit-form__item_element_name"
+                class="
+                  popup__input
+                  edit-form__item edit-form__item_element_name
+                "
                 placeholder="Имя"
                 id="profile-name"
                 name="profile-name"
                 required
                 minlength="2"
                 maxlength="40"
-              >
+              />
               <span class="popup__form-error" id="profile-name-error"></span>
               <input
                 type="text"
-                class="popup__input edit-form__item edit-form__item_element_about"
+                class="
+                  popup__input
+                  edit-form__item edit-form__item_element_about
+                "
                 placeholder="О себе"
                 id="profile-about"
                 name="profile-about"
                 required
                 minlength="2"
                 maxlength="200"
-              >
+              />
               <span class="popup__form-error" id="profile-about-error"></span>
             </fieldset>
-            <button class="popup__submit-button edit-form__button" type="submit">Сохранить</button>
+            <button
+              class="popup__submit-button edit-form__button"
+              type="submit"
+            >
+              Сохранить
+            </button>
           </form>
         </div>
       </div>
@@ -111,11 +130,7 @@
           ></button>
           <h3 class="popup__heading">Новое место</h3>
           <form class="popup__form place-form" name="place-form" novalidate>
-            <fieldset
-              class="
-                place-form__input-container
-              "
-            >
+            <fieldset class="place-form__input-container">
               <input
                 type="text"
                 class="popup__input place-form__item place-form__item_el_name"
@@ -125,7 +140,7 @@
                 minlength="2"
                 maxlength="30"
                 required
-              >
+              />
               <span class="popup__form-error" id="place-name-error"></span>
               <input
                 type="url"
@@ -134,14 +149,18 @@
                 id="place-link"
                 name="place-link"
                 required
-              >
+              />
               <span class="popup__form-error" id="place-link-error"></span>
             </fieldset>
-            <button class="popup__submit-button place-form__button" type="submit">Создать</button>
+            <button
+              class="popup__submit-button place-form__button"
+              type="submit"
+            >
+              Создать
+            </button>
           </form>
         </div>
       </div>
-
       <div class="popup popup_type_avatar-add">
         <div class="popup__container">
           <button
@@ -151,11 +170,7 @@
           ></button>
           <h3 class="popup__heading">Обновить аватар</h3>
           <form class="popup__form avatar-form" name="avatar-form" novalidate>
-            <fieldset
-              class="
-                avatar-form__input-container
-              "
-            >
+            <fieldset class="avatar-form__input-container">
               <input
                 type="url"
                 class="popup__input avatar-form__item"
@@ -163,20 +178,21 @@
                 id="avatar-link"
                 name="avatar-link"
                 required
-              >
+              />
               <span class="popup__form-error" id="avatar-link-error"></span>
             </fieldset>
-            <button class="popup__submit-button avatar-form__button" type="submit">Сохранить</button>
+            <button
+              class="popup__submit-button avatar-form__button"
+              type="submit"
+            >
+              Сохранить
+            </button>
           </form>
         </div>
       </div>
-
-
-
-
       <div class="popup popup_type_image">
         <div class="popup__picture-block">
-          <img class="popup__picture" src="#" alt="#">
+          <img class="popup__picture" src="#" alt="#" />
           <button
             class="popup__close-button popup__close-button_type_image"
             id="image-close"

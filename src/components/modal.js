@@ -23,7 +23,7 @@ const closePopup = function (popup) {
 //закрытие попапа по Esc
 function closeOnEsc(evt) {
   if (evt.key === "Escape") {
-    closePopup(document.querySelector('.popup_opened'));
+    closePopup(document.querySelector(".popup_opened"));
   }
 }
 
@@ -38,9 +38,4 @@ function openProfilePopup() {
   openPopup(popupProfile);
 }
 
-export {
-  openPopup,
-  closePopup,
-  openProfilePopup,
-  resetPlacePopup,
-};
+export { openPopup, closePopup, openProfilePopup, resetPlacePopup };
