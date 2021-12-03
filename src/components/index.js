@@ -22,18 +22,6 @@ const popupAvatar = document.querySelector(".popup_type_avatar-add");
 const buttonProfileEdit = document.querySelector(".profile__edit-button");
 const buttonAvatarEdit = document.querySelector(".profile__avatar-edit");
 const buttonPlaceAdd = document.querySelector(".profile__add-button");
-const buttonPlaceClose = document.querySelector(
-  ".popup__close-button_type_place"
-);
-const buttonAvatarClose = document.querySelector(
-  ".popup__close-button_type_avatar"
-);
-const buttonProfileClose = document.querySelector(
-  ".popup__close-button_type_profile"
-);
-const buttonImageClose = document.querySelector(
-  ".popup__close-button_type_image"
-);
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 const profileAvatar = document.querySelector(".profile__avatar");
@@ -43,7 +31,7 @@ const placeSubmitButton = document.querySelector(".place-form__button");
 const avatarSubmitButton = document.querySelector(".avatar-form__button");
 const formProfileElement = popupProfile.querySelector(".edit-form");
 const formAvatarElement = popupAvatar.querySelector(".avatar-form");
-const popupModal = document.querySelectorAll(".popup");
+const popupModals = document.querySelectorAll(".popup");
 const nameInput = popupProfile.querySelector(".edit-form__item_element_name");
 const jobInput = popupProfile.querySelector(".edit-form__item_element_about");
 const formPlaceElement = popupPlace.querySelector(".place-form");
@@ -75,25 +63,18 @@ Promise.all([loadCards(), loadProfile()])
   });
 
 buttonProfileEdit.addEventListener("click", function () {
-  openProfilePopup(), disableValidation(config, popupProfile);
+  openProfilePopup();
+  disableValidation(config, popupProfile);
 });
 
 buttonAvatarEdit.addEventListener("click", function () {
-  openPopup(popupAvatar), disableValidation(config, popupAvatar);
+  openPopup(popupAvatar);
+  disableValidation(config, popupAvatar);
 });
-
-buttonProfileClose.addEventListener("click", () => closePopup(popupProfile));
-
-buttonImageClose.addEventListener("click", () => closePopup(popupImage));
-
-buttonAvatarClose.addEventListener("click", () => closePopup(popupAvatar));
 
 buttonPlaceAdd.addEventListener("click", function () {
-  openPopup(popupPlace), disableValidation(config, popupPlace);
-});
-
-buttonPlaceClose.addEventListener("click", function () {
-  closePopup(popupPlace);
+  openPopup(popupPlace);
+  disableValidation(config, popupPlace);
 });
 
 //сабмит формы редактирования профиля
@@ -104,6 +85,7 @@ function submitProfileForm(evt) {
     .then((profile) => {
       profileTitle.textContent = profile.name;
       profileSubtitle.textContent = profile.about;
+      closePopup(popupProfile);
     })
     .catch((err) => {
       console.log(err);
@@ -111,7 +93,6 @@ function submitProfileForm(evt) {
     .finally(() => {
       profileSubmitButton.textContent = "Сохранить";
     });
-  closePopup(popupProfile);
 }
 
 //сабмит формы смены аватара
@@ -121,6 +102,7 @@ function submitAvatarForm(evt) {
   updateAvatar(avatarInput.value)
     .then((res) => {
       profileAvatar.src = res.avatar;
+      closePopup(popupAvatar);
     })
     .catch((err) => {
       console.log(err);
@@ -128,14 +110,16 @@ function submitAvatarForm(evt) {
     .finally(() => {
       avatarSubmitButton.textContent = "Сохранить";
     });
-  closePopup(popupAvatar);
 }
 
-//закрытие по клику вне модального окна
-popupModal.forEach((element) => {
+//закрытие по клику вне модального окна и по крестику
+popupModals.forEach((element) => {
   element.addEventListener("click", function (evt) {
-    if (evt.target === evt.currentTarget) {
-      closePopup(evt.target);
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(element);
+    }
+    if (evt.target.classList.contains("popup__close-button")) {
+      closePopup(element);
     }
   });
 });
@@ -166,7 +150,7 @@ enableValidation(config);
 
 export {
   popupProfile,
-  popupModal,
+  popupModals,
   popupAvatar,
   nameInput,
   jobInput,

@@ -7,9 +7,11 @@ const zoomImg = document.querySelector(".popup__picture");
 
 //Удаление карточки
 function deleteCard(evt, cardData) {
-  removeCard(cardData._id).then(() => {
+  removeCard(cardData._id)
+  .then(() => {
     evt.target.closest(".card").remove();
-  });
+  })
+  .catch((err) => console.log(err));
 }
 
 function likeCard(evt, cardData, likeCount) {

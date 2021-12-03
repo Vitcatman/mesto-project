@@ -36,6 +36,11 @@
 @import url("../blocks/popup/__description/popup__description.css");
 @import url("../blocks/popup/__picture-block/popup__picture-block.css");
 @import url("../blocks/popup/__form-error/popup__form-error.css");
+@import url("../blocks/avatar-form/avatar-form.css");
+@import url("../blocks/avatar-form/__button/avatar-form__button.css");
+@import url("../blocks/avatar-form/__input-container/avatar-form__input-container.css");
+@import url("../blocks/avatar-form/__item/avatar-form__item.css");
+@import url("../blocks/avatar-form/__item/_el/avatar-form__item_el_link.css");
 @import url("../blocks/edit-form/edit-form.css");
 @import url("../blocks/edit-form/__button/edit-form__button.css");
 @import url("../blocks/edit-form/__input-container/edit-form__input-container.css");
@@ -49,9 +54,3 @@
 @import url("../blocks/place-form/__item/_el/place-form__item_el_link.css");
 @import url("../blocks/popup/__save-button/_disabled/popup__save-button_disabled.css");
 @import url("../blocks/popup/__input/_error/popup__input_error.css");
-
-@import url("../blocks/avatar-form/avatar-form.css");
-@import url("../blocks/avatar-form/__button/avatar-form__button.css");
-@import url("../blocks/avatar-form/__input-container/avatar-form__input-container.css");
-@import url("../blocks/avatar-form/__item/avatar-form__item.css");
-@import url("../blocks/avatar-form/__item/_el/avatar-form__item_el_link.css");

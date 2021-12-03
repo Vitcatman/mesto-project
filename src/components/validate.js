@@ -67,8 +67,8 @@ export function disableValidation(config, formElement) {
   const inputList = Array.from(
     formElement.querySelectorAll(config.inputSelector)
   );
+  const submitButton = formElement.querySelector(config.submitButtonSelector);
   inputList.forEach((inputElement) => {
-    const submitButton = formElement.querySelector(config.submitButtonSelector);
     hideInputError(inputElement, formElement, config);
     toggleButtonState(submitButton, inputList, config);
   });
