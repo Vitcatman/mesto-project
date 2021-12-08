@@ -1,18 +1,12 @@
-import { popupImage } from "../components/index.js";
-import { openPopup } from "../components/modal.js";
+import { popupImage, popupDelete } from "../components/index.js";
+import { closePopup, openPopup } from "../components/modal.js";
 import { deleteLike, placeLike, removeCard } from "../components/api.js";
 
 const cardsList = document.querySelector(".cards");
 const zoomImg = document.querySelector(".popup__picture");
-
-//Удаление карточки
-function deleteCard(evt, cardData) {
-  removeCard(cardData._id)
-  .then(() => {
-    evt.target.closest(".card").remove();
-  })
-  .catch((err) => console.log(err));
-}
+const popupCardDeleteButton = document.querySelector(".popup__delete-button");
+let cardDeleteId;
+let cardToDelete;
 
 function likeCard(evt, cardData, likeCount) {
   if (evt.target.classList.contains("card__like-button_active")) {
@@ -57,14 +51,34 @@ function createCard(cardData, profile) {
   cardElement
     .querySelector(".card__like-button")
     .addEventListener("click", (evt) => likeCard(evt, cardData, likeCount));
-  cardElement
-    .querySelector(".card__delete-button")
-    .addEventListener("click", (evt) => deleteCard(evt, cardData));
+  cardDeleteButton.addEventListener("click", (evt) => openDeletePopup (evt,cardData));
+  // cardElement
+  //   .querySelector(".card__delete-button")
+  //   .addEventListener("click", (evt) => deleteCard(evt, cardData));
   cardImage.addEventListener("click", function () {
     showImagePopup(cardData.link, cardData.name);
   });
   return cardElement;
 }
+
+//Открытие попапа с удалением
+
+function openDeletePopup (evt,cardData) {
+  openPopup(popupDelete);
+  cardDeleteId = cardData._id;
+  cardToDelete = evt.target.closest(".card");
+}
+
+//Удаление карточки
+function deleteCard() {
+  removeCard(cardDeleteId)
+  .then(() => {
+    cardToDelete.remove();
+    closePopup(popupDelete);
+  })
+  .catch((err) => console.log(err));
+}
+popupCardDeleteButton.addEventListener("click", deleteCard);
 
 //открытие попапа с фотографией
 function showImagePopup(cardLink, cardName) {

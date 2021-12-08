@@ -19,6 +19,7 @@ const popupProfile = document.querySelector(".popup_type_profile");
 const popupPlace = document.querySelector(".popup_type_place-add");
 const popupImage = document.querySelector(".popup_type_image");
 const popupAvatar = document.querySelector(".popup_type_avatar-add");
+const popupDelete = document.querySelector(".popup_type_delete-card");
 const buttonProfileEdit = document.querySelector(".profile__edit-button");
 const buttonAvatarEdit = document.querySelector(".profile__avatar-edit");
 const buttonPlaceAdd = document.querySelector(".profile__add-button");
@@ -152,6 +153,7 @@ export {
   popupProfile,
   popupModals,
   popupAvatar,
+  popupDelete,
   nameInput,
   jobInput,
   profileTitle,
