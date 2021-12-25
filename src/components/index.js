@@ -1,5 +1,5 @@
 // комментарий новый
-import { enableValidation, disableValidation } from "../components/validate.js";
+import FormValidator from "../components/validate.js";
 import { createCard, cardsList } from "./card.js";
 import {
   closePopup,
@@ -66,17 +66,17 @@ Promise.all([loadCards(), loadProfile()])
 
 buttonProfileEdit.addEventListener("click", function () {
   openProfilePopup();
-  disableValidation(config, popupProfile);
+  // disableValidation(config, popupProfile);
 });
 
 buttonAvatarEdit.addEventListener("click", function () {
   openPopup(popupAvatar);
-  disableValidation(config, popupAvatar);
+  // disableValidation(config, popupAvatar);
 });
 
 buttonPlaceAdd.addEventListener("click", function () {
   openPopup(popupPlace);
-  disableValidation(config, popupPlace);
+  // disableValidation(config, popupPlace);
 });
 
 //сабмит формы редактирования профиля
@@ -96,6 +96,9 @@ function submitProfileForm(evt) {
       profileSubmitButton.textContent = "Сохранить";
     });
 }
+
+const validationProfile = new FormValidator (config, popupProfile);
+validationProfile.enableValidation();
 
 //сабмит формы смены аватара
 function submitAvatarForm(evt) {
@@ -148,7 +151,7 @@ formPlaceElement.addEventListener("submit", submitPlaceForm);
 
 formAvatarElement.addEventListener("submit", submitAvatarForm);
 
-enableValidation(config);
+// enableValidation(config);
 
 export {
   popupProfile,

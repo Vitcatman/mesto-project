@@ -8,6 +8,8 @@ import {
   popupAvatar,
 } from "../components/index.js";
 
+import FormValidator  from "../components/validate.js";
+
 //открытие попапа
 const openPopup = function (popup) {
   popup.classList.add("popup_opened");
