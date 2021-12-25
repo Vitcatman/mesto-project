@@ -1,4 +1,4 @@
-// комментарий
+// комментарий новый
 import { enableValidation, disableValidation } from "../components/validate.js";
 import { createCard, cardsList } from "./card.js";
 import {
