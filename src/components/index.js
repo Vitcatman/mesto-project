@@ -97,8 +97,8 @@ function submitProfileForm(evt) {
     });
 }
 
-const validationProfile = new FormValidator (config, popupProfile);
-validationProfile.enableValidation();
+const validationProfile = new FormValidator(config, formProfileElement);
+validationProfile.enableValidation(); 
 
 //сабмит формы смены аватара
 function submitAvatarForm(evt) {
