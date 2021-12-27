@@ -66,7 +66,7 @@ Promise.all([loadCards(), loadProfile()])
 
 buttonProfileEdit.addEventListener("click", function () {
   openProfilePopup();
-  // disableValidation(config, popupProfile);
+  // formProfileElement.reset();
 });
 
 buttonAvatarEdit.addEventListener("click", function () {
@@ -98,7 +98,8 @@ function submitProfileForm(evt) {
 }
 
 const validationProfile = new FormValidator(config, formProfileElement);
-validationProfile.enableValidation(); 
+validationProfile.enableValidation();
+
 
 //сабмит формы смены аватара
 function submitAvatarForm(evt) {
