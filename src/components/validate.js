@@ -48,7 +48,7 @@ _setEventListeners = () => {
     evt.preventDefault();
   });
 
-  //find all inputs
+  //? эти две константы дублируются, но я не знаю как это исправить
   const inputList = Array.from(
     this._formElement.querySelectorAll(this._config.inputSelector)
   );
@@ -61,20 +61,36 @@ _setEventListeners = () => {
       this._toggleButtonState(submitButton, inputList);
     });
   });
-
-  //validation reset
-  this._formElement.addEventListener("reset", () => {
-    inputList.forEach((inputElement) => {
-      this._hideInputError(inputElement);
-      this._toggleButtonState(submitButton, inputList);
-    });
-  });
-
   this._toggleButtonState(submitButton, inputList);
+  //validation reset
+  // this._formElement.addEventListener("reset", () => {
+  //   inputList.forEach((inputElement) => {
+  //     this._hideInputError(inputElement);
+  //     this._toggleButtonState(submitButton, inputList);
+  //   });
+  // });
+
 }
 
 enableValidation() {
   this._setEventListeners();
+}
+
+  _resetValidation() {
+    //? эти две константы дублируются, но я не знаю как это исправить
+    const inputList = Array.from(
+      this._formElement.querySelectorAll(this._config.inputSelector)
+    );
+    const submitButton = this._formElement.querySelector(this._config.submitButtonSelector);
+    inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+      this._toggleButtonState(submitButton, inputList);
+    });
+    this._toggleButtonState(submitButton, inputList);
+  }
+
+disablesValidation() {
+  this._resetValidation()
 }
 
 }

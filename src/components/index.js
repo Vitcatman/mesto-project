@@ -63,18 +63,30 @@ Promise.all([loadCards(), loadProfile()])
   .catch((err) => {
     console.log(err);
   });
+// * Profile
+const validationProfile = new FormValidator(config, formProfileElement);
+validationProfile.enableValidation();
 
 buttonProfileEdit.addEventListener("click", function () {
+  validationProfile.disablesValidation();
   openProfilePopup();
   // formProfileElement.reset();
 });
+// * Avatar
+const validationAvatarEdit = new FormValidator(config, formAvatarElement);
+validationAvatarEdit.enableValidation();
 
 buttonAvatarEdit.addEventListener("click", function () {
+  validationAvatarEdit.disablesValidation();
   openPopup(popupAvatar);
   // disableValidation(config, popupAvatar);
 });
+// * AddCard
+const validationPlaceAdd = new FormValidator(config, formPlaceElement);
+validationPlaceAdd.enableValidation();
 
 buttonPlaceAdd.addEventListener("click", function () {
+  validationPlaceAdd.disablesValidation();
   openPopup(popupPlace);
   // disableValidation(config, popupPlace);
 });
@@ -97,8 +109,7 @@ function submitProfileForm(evt) {
     });
 }
 
-const validationProfile = new FormValidator(config, formProfileElement);
-validationProfile.enableValidation();
+
 
 
 //сабмит формы смены аватара
