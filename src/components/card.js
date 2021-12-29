@@ -1,6 +1,7 @@
-import { popupImage, popupDelete } from "../components/index.js";
+import { popupImage, popupDelete, api } from "../components/index.js";
 import { closePopup, openPopup } from "../components/modal.js";
-import { deleteLike, placeLike, removeCard } from "../components/api.js";
+// import { deleteLike, placeLike, removeCard } from "../components/api.js";
+
 
 const cardsList = document.querySelector(".cards");
 const zoomImg = document.querySelector(".popup__picture");
@@ -10,14 +11,14 @@ let cardToDelete;
 
 function likeCard(evt, cardData, likeCount) {
   if (evt.target.classList.contains("card__like-button_active")) {
-    deleteLike(cardData._id)
+    api.deleteLike(cardData._id)
       .then((res) => {
         likeCount.textContent = res.likes.length;
         evt.target.classList.toggle("card__like-button_active");
       })
       .catch((err) => console.log(err));
   } else {
-    placeLike(cardData._id)
+    api.placeLike(cardData._id)
       .then((res) => {
         likeCount.textContent = res.likes.length;
         evt.target.classList.toggle("card__like-button_active");
@@ -71,7 +72,7 @@ function openDeletePopup (evt,cardData) {
 
 //Удаление карточки
 function deleteCard() {
-  removeCard(cardDeleteId)
+  api.removeCard(cardDeleteId)
   .then(() => {
     cardToDelete.remove();
     closePopup(popupDelete);
