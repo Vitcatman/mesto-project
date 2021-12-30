@@ -1,6 +1,8 @@
 // комментарий новый
 import FormValidator from "../components/validate.js";
 import { createCard, cardsList } from "./card.js";
+import PopupWithForm from "../components/modal.js";
+
 import {
   closePopup,
   openPopup,
@@ -8,13 +10,24 @@ import {
   resetPlacePopup,
 } from "../components/modal.js";
 import "../pages/index.css";
-import {
-  loadProfile,
-  loadCards,
-  editProfile,
-  addNewCard,
-  updateAvatar,
-} from "./api.js";
+// import {
+//   loadProfile,
+//   loadCards,
+//   editProfile,
+//   addNewCard,
+//   updateAvatar,
+// } from "./api.js";
+
+const apiConfig = {
+  baseUrl: "https://nomoreparties.co/v1/plus-cohort-4",
+  headers: {
+    authorization: "61de9a72-5985-428d-ba82-f3cc85d60f49",
+    "Content-Type": "application/json",
+  },
+};
+
+import Api from "../components/api.js"
+const api = new Api(apiConfig)
 
 const popupProfile = document.querySelector(".popup_type_profile");
 const popupPlace = document.querySelector(".popup_type_place-add");
@@ -50,7 +63,7 @@ const config = {
   errorClass: "popup__form-error",
 };
 
-Promise.all([loadCards(), loadProfile()])
+Promise.all([api.loadCards(), api.loadProfile()])
   .then(([cards, profile]) => {
     cards.forEach((card) => {
       cardsList.append(createCard(card, profile));
@@ -64,12 +77,19 @@ Promise.all([loadCards(), loadProfile()])
     console.log(err);
   });
 // * Profile
+
+
 const validationProfile = new FormValidator(config, formProfileElement);
 validationProfile.enableValidation();
 
+// экземпляр класса для профиля
+const popupWithProfile = new PopupWithForm(popupProfile)
+
 buttonProfileEdit.addEventListener("click", function () {
+  // вызов метода для профиля
   validationProfile.disablesValidation();
-  openProfilePopup();
+  popupWithProfile.openProfilePopup()
+  //openProfilePopup();
   // formProfileElement.reset();
 });
 // * Avatar
@@ -95,7 +115,7 @@ buttonPlaceAdd.addEventListener("click", function () {
 function submitProfileForm(evt) {
   evt.preventDefault();
   profileSubmitButton.textContent = "Сохранение...";
-  editProfile(nameInput.value, jobInput.value)
+  api.editProfile(nameInput.value, jobInput.value)
     .then((profile) => {
       profileTitle.textContent = profile.name;
       profileSubtitle.textContent = profile.about;
@@ -116,7 +136,7 @@ function submitProfileForm(evt) {
 function submitAvatarForm(evt) {
   evt.preventDefault();
   avatarSubmitButton.textContent = "Сохранение...";
-  updateAvatar(avatarInput.value)
+  api.updateAvatar(avatarInput.value)
     .then((res) => {
       profileAvatar.src = res.avatar;
       closePopup(popupAvatar);
@@ -147,7 +167,7 @@ formProfileElement.addEventListener("submit", submitProfileForm);
 function submitPlaceForm(evt) {
   evt.preventDefault();
   placeSubmitButton.textContent = "Создание...";
-  addNewCard(placeInput.value, imageInput.value)
+  api.addNewCard(placeInput.value, imageInput.value)
     .then((res) => {
       cardsList.prepend(createCard(res, user));
       closePopup(popupPlace);
@@ -176,4 +196,5 @@ export {
   profileSubtitle,
   popupPlace,
   popupImage,
+  api,
 };

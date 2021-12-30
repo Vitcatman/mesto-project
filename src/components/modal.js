@@ -8,7 +8,40 @@ import {
   popupAvatar,
 } from "../components/index.js";
 
-import FormValidator  from "../components/validate.js";
+class Popup {
+  constructor(popup) {
+    this._popup = popup
+  }
+
+  openPopup() {
+    this._popup.classList.add("popup_opened");
+    document.addEventListener("keydown", closeOnEsc);
+  }
+
+  closePopup() {
+    this._popup.classList.remove("popup_opened");
+    document.removeEventListener("keydown", closeOnEsc);
+  }
+
+  closeOnEsc(evt) {
+    if (evt.key === "Escape") {
+      closePopup(document.querySelector(".popup_opened"));
+    }
+  }
+}
+
+export default class PopupWithForm extends Popup {
+  constructor(popup) {
+    super(popup);
+  }
+  openProfilePopup() {
+    nameInput.value = profileTitle.textContent;
+    jobInput.value = profileSubtitle.textContent;
+    this.openPopup();
+  }
+}
+
+
 
 //открытие попапа
 const openPopup = function (popup) {
