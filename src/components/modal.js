@@ -8,22 +8,22 @@ import {
   popupAvatar,
 } from "../components/index.js";
 
-class Popup {
-  constructor(popup) {
-    this._popup = popup
+export class Popup {
+  constructor(popupSelector) {
+    this._popupSelector = popupSelector;
   }
 
   openPopup() {
-    this._popup.classList.add("popup_opened");
-    document.addEventListener("keydown", closeOnEsc);
+    this._popupSelector.classList.add("popup_opened");
+    document.addEventListener("keydown", this._closeOnEsc);
   }
 
   closePopup() {
-    this._popup.classList.remove("popup_opened");
-    document.removeEventListener("keydown", closeOnEsc);
+    this._popupSelector.classList.remove("popup_opened");
+    document.removeEventListener("keydown", this._closeOnEsc);
   }
 
-  closeOnEsc(evt) {
+  _closeOnEsc(evt) {
     if (evt.key === "Escape") {
       closePopup(document.querySelector(".popup_opened"));
     }
@@ -31,8 +31,8 @@ class Popup {
 }
 
 export default class PopupWithForm extends Popup {
-  constructor(popup) {
-    super(popup);
+  constructor(popupSelector) {
+    super(popupSelector);
   }
   openProfilePopup() {
     nameInput.value = profileTitle.textContent;
@@ -40,6 +40,8 @@ export default class PopupWithForm extends Popup {
     this.openPopup();
   }
 }
+
+
 
 
 

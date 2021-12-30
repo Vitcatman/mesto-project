@@ -96,18 +96,25 @@ buttonProfileEdit.addEventListener("click", function () {
 const validationAvatarEdit = new FormValidator(config, formAvatarElement);
 validationAvatarEdit.enableValidation();
 
+//экземпляр класса для аватара
+const popupWithAvatar = new PopupWithForm(popupAvatar);
+
+
 buttonAvatarEdit.addEventListener("click", function () {
   validationAvatarEdit.disablesValidation();
-  openPopup(popupAvatar);
+  popupWithAvatar.openPopup();
   // disableValidation(config, popupAvatar);
 });
 // * AddCard
 const validationPlaceAdd = new FormValidator(config, formPlaceElement);
 validationPlaceAdd.enableValidation();
 
+//экземпляр класса для карточек
+const popupWithCard = new PopupWithForm(popupPlace);
+
 buttonPlaceAdd.addEventListener("click", function () {
   validationPlaceAdd.disablesValidation();
-  openPopup(popupPlace);
+  popupWithCard.openPopup();
   // disableValidation(config, popupPlace);
 });
 
@@ -128,8 +135,6 @@ function submitProfileForm(evt) {
       profileSubmitButton.textContent = "Сохранить";
     });
 }
-
-
 
 
 //сабмит формы смены аватара
