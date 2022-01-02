@@ -1,5 +1,6 @@
 import { popupImage, popupDelete, api } from "../components/index.js";
 import { closePopup, openPopup } from "../components/modal.js";
+import {PopupWithImage} from  "../components/modal.js";
 // import { deleteLike, placeLike, removeCard } from "../components/api.js";
 
 
@@ -35,6 +36,7 @@ function createCard(cardData, profile) {
   const likeCount = cardElement.querySelector(".card__like-count");
   const likeButton = cardElement.querySelector(".card__like-button");
   const cardDeleteButton = cardElement.querySelector(".card__delete-button");
+  const popupWithImage = new PopupWithImage(popupImage);
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
   likeCount.textContent = cardData.likes.length;
@@ -56,8 +58,8 @@ function createCard(cardData, profile) {
   // cardElement
   //   .querySelector(".card__delete-button")
   //   .addEventListener("click", (evt) => deleteCard(evt, cardData));
-  cardImage.addEventListener("click", function () {
-    showImagePopup(cardData.link, cardData.name);
+  cardImage.addEventListener("click", () => {
+    popupWithImage.showImagePopup(cardData.link, cardData.name);
   });
   return cardElement;
 }
@@ -82,11 +84,11 @@ function deleteCard() {
 popupCardDeleteButton.addEventListener("click", deleteCard);
 
 //открытие попапа с фотографией
-function showImagePopup(cardLink, cardName) {
-  zoomImg.src = cardLink;
-  zoomImg.alt = cardName;
-  popupImage.querySelector(".popup__description").textContent = cardName;
-  openPopup(popupImage);
-}
+// function showImagePopup(cardLink, cardName) {
+//   zoomImg.src = cardLink;
+//   zoomImg.alt = cardName;
+//   popupImage.querySelector(".popup__description").textContent = cardName;
+//   openPopup(popupImage);
+// }
 
-export { createCard, cardsList };
+export { createCard, cardsList, zoomImg };

@@ -8,6 +8,10 @@ import {
   popupAvatar,
 } from "../components/index.js";
 
+import {
+  zoomImg
+} from "../components/card.js";
+
 export class Popup {
   constructor(popupSelector) {
     this._popupSelector = popupSelector;
@@ -41,9 +45,20 @@ export default class PopupWithForm extends Popup {
   }
 }
 
+export class PopupWithImage extends Popup {
+ constructor(popupSelector) {
+   super(popupSelector);
+ }
+
+ showImagePopup(cardLink, cardName) {
+  zoomImg.src = cardLink;
+  zoomImg.alt = cardName;
+  this._popupSelector.querySelector(".popup__description").textContent = cardName;
+  this.openPopup();
+}
 
 
-
+}
 
 //открытие попапа
 const openPopup = function (popup) {

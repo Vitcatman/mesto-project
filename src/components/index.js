@@ -83,7 +83,7 @@ const validationProfile = new FormValidator(config, formProfileElement);
 validationProfile.enableValidation();
 
 // экземпляр класса для профиля
-const popupWithProfile = new PopupWithForm(popupProfile)
+const popupWithProfile = new PopupWithForm(popupProfile);
 
 buttonProfileEdit.addEventListener("click", function () {
   // вызов метода для профиля
