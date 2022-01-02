@@ -1,4 +1,30 @@
 // комментарий новый
+import {
+  popupProfile,
+  popupPlace,
+  popupImage,
+  popupAvatar,
+  popupDelete,
+  buttonProfileEdit,
+  buttonAvatarEdit,
+  buttonPlaceAdd,
+  profileTitle,
+  profileSubtitle,
+  profileAvatar,
+  avatarInput,
+  profileSubmitButton,
+  placeSubmitButton,
+  avatarSubmitButton,
+  formProfileElement,
+  formAvatarElement,
+  popupModals,
+  nameInput,
+  jobInput,
+  formPlaceElement,
+  placeInput,
+  imageInput,
+
+} from '../components/utils/constants.js'
 import FormValidator from "../components/validate.js";
 import { createCard, cardsList } from "./card.js";
 import PopupWithForm from "../components/modal.js";
@@ -29,29 +55,7 @@ const apiConfig = {
 import Api from "../components/api.js"
 const api = new Api(apiConfig)
 
-const popupProfile = document.querySelector(".popup_type_profile");
-const popupPlace = document.querySelector(".popup_type_place-add");
-const popupImage = document.querySelector(".popup_type_image");
-const popupAvatar = document.querySelector(".popup_type_avatar-add");
-const popupDelete = document.querySelector(".popup_type_delete-card");
-const buttonProfileEdit = document.querySelector(".profile__edit-button");
-const buttonAvatarEdit = document.querySelector(".profile__avatar-edit");
-const buttonPlaceAdd = document.querySelector(".profile__add-button");
-const profileTitle = document.querySelector(".profile__title");
-const profileSubtitle = document.querySelector(".profile__subtitle");
-const profileAvatar = document.querySelector(".profile__avatar");
-const avatarInput = document.querySelector(".avatar-form__item");
-const profileSubmitButton = document.querySelector(".edit-form__button");
-const placeSubmitButton = document.querySelector(".place-form__button");
-const avatarSubmitButton = document.querySelector(".avatar-form__button");
-const formProfileElement = popupProfile.querySelector(".edit-form");
-const formAvatarElement = popupAvatar.querySelector(".avatar-form");
-const popupModals = document.querySelectorAll(".popup");
-const nameInput = popupProfile.querySelector(".edit-form__item_element_name");
-const jobInput = popupProfile.querySelector(".edit-form__item_element_about");
-const formPlaceElement = popupPlace.querySelector(".place-form");
-const placeInput = popupPlace.querySelector(".place-form__item_el_name");
-const imageInput = popupPlace.querySelector(".place-form__item_el_link");
+
 let user;
 
 const config = {

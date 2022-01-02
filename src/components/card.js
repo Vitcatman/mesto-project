@@ -1,12 +1,16 @@
-import { popupImage, popupDelete, api } from "../components/index.js";
-import { closePopup, openPopup } from "../components/modal.js";
+import { api } from "../components/index.js";
+// import { closePopup, openPopup } from "../components/modal.js";
 import {PopupWithImage} from  "../components/modal.js";
 // import { deleteLike, placeLike, removeCard } from "../components/api.js";
+import {
+  cardsList,
+  zoomImg,
+  popupCardDeleteButton,
+  popupDelete,
+  popupImage,
 
+} from "../components/utils/constants.js"
 
-const cardsList = document.querySelector(".cards");
-const zoomImg = document.querySelector(".popup__picture");
-const popupCardDeleteButton = document.querySelector(".popup__delete-button");
 let cardDeleteId;
 let cardToDelete;
 

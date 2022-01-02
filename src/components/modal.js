@@ -4,13 +4,10 @@ import {
   jobInput,
   profileTitle,
   profileSubtitle,
-  popupImage,
-  popupAvatar,
-} from "../components/index.js";
+  zoomImg,
+} from "../components/utils/constants.js";
 
-import {
-  zoomImg
-} from "../components/card.js";
+
 
 export class Popup {
   constructor(popupSelector) {
@@ -46,11 +43,11 @@ export default class PopupWithForm extends Popup {
 }
 
 export class PopupWithImage extends Popup {
- constructor(popupSelector) {
-   super(popupSelector);
- }
+  constructor(popupSelector) {
+    super(popupSelector);
+  }
 
- showImagePopup(cardLink, cardName) {
+  showImagePopup(cardLink, cardName) {
   zoomImg.src = cardLink;
   zoomImg.alt = cardName;
   this._popupSelector.querySelector(".popup__description").textContent = cardName;
