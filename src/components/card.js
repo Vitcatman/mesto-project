@@ -1,15 +1,17 @@
 import { api } from "../components/index.js";
 // import { closePopup, openPopup } from "../components/modal.js";
-import {PopupWithImage} from  "../components/modal.js";
+import {zoomedPicture} from  "../components/index.js";
+
+
 // import { deleteLike, placeLike, removeCard } from "../components/api.js";
 import {
   cardsList,
   zoomImg,
   popupCardDeleteButton,
   popupDelete,
-  popupImage,
+} from "../utils/constants.js"
 
-} from "../components/utils/constants.js"
+import PopupWithForm from "../components/PopupWithForm.js";
 
 let cardDeleteId;
 let cardToDelete;
@@ -40,7 +42,7 @@ function createCard(cardData, profile) {
   const likeCount = cardElement.querySelector(".card__like-count");
   const likeButton = cardElement.querySelector(".card__like-button");
   const cardDeleteButton = cardElement.querySelector(".card__delete-button");
-  const popupWithImage = new PopupWithImage(popupImage);
+
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
   likeCount.textContent = cardData.likes.length;
@@ -63,36 +65,44 @@ function createCard(cardData, profile) {
   //   .querySelector(".card__delete-button")
   //   .addEventListener("click", (evt) => deleteCard(evt, cardData));
   cardImage.addEventListener("click", () => {
-    popupWithImage.showImagePopup(cardData.link, cardData.name);
+    zoomedPicture.showImagePopup(cardData.link, cardData.name);
   });
   return cardElement;
 }
 
-//Открытие попапа с удалением
+// //Экземпляр класса для попапа удаления карточки
+const popupForDelete = new PopupWithForm(popupDelete, {
+  submitHandler: () => {
+      api.removeCard(cardDeleteId)
+      .then(() => {
+        cardToDelete.remove();
+        this.closePopup();
+      })
+      .catch((err) => console.log(err));
+  }
+
+});
+
+popupForDelete.setEventListeners();
+
+// Открытие попапа с удалением
 
 function openDeletePopup (evt,cardData) {
-  openPopup(popupDelete);
+  popupForDelete.openPopup();
   cardDeleteId = cardData._id;
   cardToDelete = evt.target.closest(".card");
 }
 
-//Удаление карточки
+// Удаление карточки
 function deleteCard() {
   api.removeCard(cardDeleteId)
   .then(() => {
     cardToDelete.remove();
-    closePopup(popupDelete);
+    popupForDelete.closePopup();
   })
   .catch((err) => console.log(err));
 }
 popupCardDeleteButton.addEventListener("click", deleteCard);
 
-//открытие попапа с фотографией
-// function showImagePopup(cardLink, cardName) {
-//   zoomImg.src = cardLink;
-//   zoomImg.alt = cardName;
-//   popupImage.querySelector(".popup__description").textContent = cardName;
-//   openPopup(popupImage);
-// }
 
 export { createCard, cardsList, zoomImg };
