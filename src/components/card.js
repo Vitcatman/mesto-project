@@ -12,6 +12,8 @@ import {
 
 import PopupWithDelete from "../components/PopupWithDelete.js";
 
+
+
 let cardDeleteId;
 let cardToDelete;
 
@@ -30,6 +32,82 @@ function likeCard(evt, cardData, likeCount) {
         evt.target.classList.toggle("card__like-button_active");
       })
       .catch((err) => console.log(err));
+  }
+}
+
+
+export default class Card {
+  constructor(cardData, profile, selector) {
+    //? думаю что тут придется делать как у Миши, но это не точно
+    this._selector = selector;
+    this._likes = cardData.likes;
+    this._link = cardData.link;
+    this._name = cardData.name;
+    this._owner = cardData.owner._id;
+    this._cardId = cardData._id;
+    this._profileId = profile._id;
+  }
+
+  _getElement() {
+    const cardElement = document
+      .querySelector(this._selector)
+      .content
+      .querySelector('.card')
+      .cloneNode(true);
+    return cardElement;
+  }
+
+  _setEventListeners(){
+    
+    this._cardLike.addEventListener("click", (evt) => this._likeCard(evt, this._cardId, likeCount));
+
+    // this._cardDeleteButton = this._cardElement.querySelector(".card__delete-button")
+    this._cardDeleteButton.addEventListener("click", (evt) => this._openDeletePopup(evt, cardData));
+    // ? откуда showImagePopup?
+    this._cardImage.addEventListener("click", () => {
+      zoomedPicture.this._showImagePopup(cardData.link, cardData.name);
+    });
+  }
+
+  _setCardValues() {
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._likeCount.textContent = this._likes.length;
+  }
+
+  _checkLikesAndOwner() {
+    this._likes.forEach((like) => {
+      if (like._id === this._profileId) {
+        this._likeButton.classList.add("card__like-button_active");
+      }
+    });
+
+    if (this._profileId !== this._owner) {
+      this._cardDeleteButton.classList.add("card__delete-button_hidden");
+    }
+  }
+
+  _likeCard(evt) {
+    if (evt.target.classList.contains("card__like-button_active")) {
+      api.deleteLike(this._cardId)
+        .then((res) => {
+          this._likeCount.textContent = res.likes.length;
+          evt.target.classList.toggle("card__like-button_active");
+        })
+        .catch((err) => console.log(err));
+    } else {
+      api.placeLike(this._cardId)
+        .then((res) => {
+          this._likeCount.textContent = res.likes.length;
+          evt.target.classList.toggle("card__like-button_active");
+        })
+        .catch((err) => console.log(err));
+      }
+  }
+
+  generate() {
+    this.cardElement = this._getElement();
+
   }
 }
 
