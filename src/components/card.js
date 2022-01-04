@@ -7,11 +7,10 @@ import {zoomedPicture} from  "../components/index.js";
 import {
   cardsList,
   zoomImg,
-  popupCardDeleteButton,
   popupDelete,
 } from "../utils/constants.js"
 
-import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithDelete from "../components/PopupWithDelete.js";
 
 let cardDeleteId;
 let cardToDelete;
@@ -61,9 +60,7 @@ function createCard(cardData, profile) {
     .querySelector(".card__like-button")
     .addEventListener("click", (evt) => likeCard(evt, cardData, likeCount));
   cardDeleteButton.addEventListener("click", (evt) => openDeletePopup (evt,cardData));
-  // cardElement
-  //   .querySelector(".card__delete-button")
-  //   .addEventListener("click", (evt) => deleteCard(evt, cardData));
+
   cardImage.addEventListener("click", () => {
     zoomedPicture.showImagePopup(cardData.link, cardData.name);
   });
@@ -71,12 +68,12 @@ function createCard(cardData, profile) {
 }
 
 // //Экземпляр класса для попапа удаления карточки
-const popupForDelete = new PopupWithForm(popupDelete, {
+const popupForDelete = new PopupWithDelete(popupDelete, {
   submitHandler: () => {
       api.removeCard(cardDeleteId)
       .then(() => {
         cardToDelete.remove();
-        this.closePopup();
+        popupForDelete.closePopup();
       })
       .catch((err) => console.log(err));
   }
@@ -93,16 +90,6 @@ function openDeletePopup (evt,cardData) {
   cardToDelete = evt.target.closest(".card");
 }
 
-// Удаление карточки
-function deleteCard() {
-  api.removeCard(cardDeleteId)
-  .then(() => {
-    cardToDelete.remove();
-    popupForDelete.closePopup();
-  })
-  .catch((err) => console.log(err));
-}
-popupCardDeleteButton.addEventListener("click", deleteCard);
 
 
 export { createCard, cardsList, zoomImg };

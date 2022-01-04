@@ -160,21 +160,6 @@ buttonPlaceAdd.addEventListener("click", function () {
 const zoomedPicture = new PopupWithImage(popupImage);
 zoomedPicture.setEventListeners();
 
-// //Экземпляр класса для попапа удаления карточки
-// const popupForDelete = new PopupWithDelete(popupDelete, {
-//   submitHandler: () => {
-//       api.removeCard(cardDeleteId)
-//       .then(() => {
-//         cardToDelete.remove();
-//         this.closePopup();
-//       })
-//       .catch((err) => console.log(err));
-//   }
-
-// });
-
-// popupForDelete.setEventListeners();
-
 
 export {
   popupProfile,

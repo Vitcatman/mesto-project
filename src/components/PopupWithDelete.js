@@ -1,29 +1,21 @@
 
-// import {
-//   popupCardDeleteButton,
-// } from "../utils/constants.js"
-// import Popup from '../components/Popup.js';
-// let cardDeleteId;
-// let cardToDelete;
-
-// export default class PopupWithDelete extends Popup {
-//   constructor(popupSelector, {submitHandler}) {
-//     super(popupSelector);
-//     this._submitHandler = submitHandler;
-
-//   }
+import {
+  popupCardDeleteButton,
+} from "../utils/constants.js"
+import Popup from '../components/Popup.js';
 
 
-//   openDeletePopup (evt, cardData) {
+export default class PopupWithDelete extends Popup {
+  constructor(popupSelector, {submitHandler}) {
+    super(popupSelector);
+    this._submitHandler = submitHandler;
 
-//     this.openPopup();
-//     // console.log(cardToDelete)
-//     cardToDelete = evt.target.closest(".card");
-//     cardDeleteId = cardData._id;
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    popupCardDeleteButton.addEventListener('click', this._submitHandler)
+  }
 
 
-//   }
-
-
-
-// }
+}
