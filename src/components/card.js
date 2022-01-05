@@ -16,7 +16,8 @@ import PopupWithDelete from "../components/PopupWithDelete.js";
 
 let cardDeleteId;
 let cardToDelete;
-
+// * это перенесется в index.js и будет передаваться такой/почти такой фцнкцией через массив (как у Мишм)
+// * так же с другими двумя функциями, их нужно писать не в card.js а в index.js
 function likeCard(evt, cardData, likeCount) {
   if (evt.target.classList.contains("card__like-button_active")) {
     api.deleteLike(cardData._id)
@@ -37,15 +38,13 @@ function likeCard(evt, cardData, likeCount) {
 
 
 export default class Card {
-  constructor(cardData, profile, selector) {
-    //? думаю что тут придется делать как у Миши, но это не точно
+  constructor({cardData, profile, likeCard, showImagePopup, openDeletePopup}, selector) {
+    this._cardData = cardData;
+    this._profile = profile;
+    this._likeCard = likeCard;
+    this._showImagePopup = showImagePopup;
+    this._openDeletePopup = openDeletePopup;
     this._selector = selector;
-    this._likes = cardData.likes;
-    this._link = cardData.link;
-    this._name = cardData.name;
-    this._owner = cardData.owner._id;
-    this._cardId = cardData._id;
-    this._profileId = profile._id;
   }
 
   _getElement() {
@@ -59,55 +58,45 @@ export default class Card {
 
   _setEventListeners(){
     
-    this._cardLike.addEventListener("click", (evt) => this._likeCard(evt, this._cardId, likeCount));
-
-    // this._cardDeleteButton = this._cardElement.querySelector(".card__delete-button")
-    this._cardDeleteButton.addEventListener("click", (evt) => this._openDeletePopup(evt, cardData));
-    // ? откуда showImagePopup?
+    this._likeButton.addEventListener("click", (evt) => this._likeCard(evt, this._cardData._id, this._likeCount));
+    this._cardDeleteButton.addEventListener("click", (evt) => this._openDeletePopup(evt, this._cardData));
+    // ? незнаю куда тут сунуть this / может быть this._showImagePopup ?
     this._cardImage.addEventListener("click", () => {
-      zoomedPicture.this._showImagePopup(cardData.link, cardData.name);
+      zoomedPicture._showImagePopup(this._cardData.link, this._cardData.name);
     });
   }
 
   _setCardValues() {
-    this._cardImage.src = this._link;
-    this._cardImage.alt = this._name;
-    this._likeCount.textContent = this._likes.length;
+    this._cardImage.src = this._cardData.link;
+    this._cardImage.alt = this._cardData.name;
+    this._likeCount.textContent = this._cardData.likes;
   }
 
   _checkLikesAndOwner() {
     this._likes.forEach((like) => {
-      if (like._id === this._profileId) {
+      if (like._id === this._cardData.owner._id) {
         this._likeButton.classList.add("card__like-button_active");
       }
     });
 
-    if (this._profileId !== this._owner) {
+    if (this._profile._id !== this._cardData.owner._id) {
       this._cardDeleteButton.classList.add("card__delete-button_hidden");
     }
-  }
-
-  _likeCard(evt) {
-    if (evt.target.classList.contains("card__like-button_active")) {
-      api.deleteLike(this._cardId)
-        .then((res) => {
-          this._likeCount.textContent = res.likes.length;
-          evt.target.classList.toggle("card__like-button_active");
-        })
-        .catch((err) => console.log(err));
-    } else {
-      api.placeLike(this._cardId)
-        .then((res) => {
-          this._likeCount.textContent = res.likes.length;
-          evt.target.classList.toggle("card__like-button_active");
-        })
-        .catch((err) => console.log(err));
-      }
   }
 
   generate() {
     this.cardElement = this._getElement();
 
+    this._likeButton = this.cardElement.querySelector(".card__like-button");
+    this._likeCount = this.cardElement.querySelector(".card__like-count");
+    this._cardDeleteButton = this._cardElement.querySelector(".card__delete-button");
+    this._cardImage = this.cardElement.querySelector(".card__image");
+
+    this._setCardValues();
+    this._checkLikesAndOwner();
+    this._setEventListeners();
+
+    return this.cardElement
   }
 }
 
