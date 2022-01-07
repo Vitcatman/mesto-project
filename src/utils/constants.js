@@ -20,6 +20,7 @@ export const nameInput = popupProfile.querySelector(".edit-form__item_element_na
 export const jobInput = popupProfile.querySelector(".edit-form__item_element_about");
 export const formPlaceElement = popupPlace.querySelector(".place-form");
 export const placeInput = popupPlace.querySelector(".place-form__item_el_name");
+export const cardTemplate = document.querySelector(".card-template")
 export const imageInput = popupPlace.querySelector(".place-form__item_el_link");
 
 export const cardsList = document.querySelector(".cards");

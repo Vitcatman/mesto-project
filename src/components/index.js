@@ -22,12 +22,15 @@ import {
   formPlaceElement,
   placeInput,
   imageInput,
+  cardsList,
 } from '../utils/constants.js'
 import FormValidator from "./FormValidator.js";
-import { createCard, cardsList } from "./card.js";
+import Card from "../components/card.js";
+import Section from "../components/Section.js"
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 // import PopupWithDelete from "../components/PopupWithDelete.js";
+import UserInfo from "../components/UserInfo.js"
 
 import "../pages/index.css";
 
@@ -53,15 +56,26 @@ const config = {
   errorClass: "popup__form-error",
 };
 
+;
+
+
+
 Promise.all([api.loadCards(), api.loadProfile()])
   .then(([cards, profile]) => {
-    cards.forEach((card) => {
-      cardsList.append(createCard(card, profile));
-    });
-    profileTitle.textContent = profile.name;
-    profileSubtitle.textContent = profile.about;
-    profileAvatar.src = profile.avatar;
-    user = profile;
+    console.log(profile)
+    const profileInfo = new UserInfo(profile);
+    profileInfo.setUserInfo();
+    user = profileInfo.getUserId();
+    const cardList = new Section({
+      data: cards,
+      renderer: (item) => {
+          const card = new Card(item, user, '.card_template');
+          const cardElement = card.generate();
+          cardList.setItem(cardElement);
+      }
+  }, ".cards");
+  cardList.renderItems()
+  console.log(cards)
   })
   .catch((err) => {
     console.log(err);
@@ -136,9 +150,14 @@ const popupWithCard = new PopupWithForm(popupPlace, {
     placeSubmitButton.textContent = "Создание...";
     api.addNewCard(placeInput.value, imageInput.value)
       .then((res) => {
-        cardsList.prepend(createCard(res, user));
-        popupWithCard.closePopup();
-        popupWithCard.resetPlacePopup();
+        const newCard = new Card(res, user, '.card_template');
+        const cardSection = new Section({
+          data: []
+      }, ".cards");
+      const cardElement = newCard.generate();
+      cardSection.addItem(cardElement);
+      popupWithCard.closePopup();
+      popupWithCard.resetPlacePopup();
       })
       .catch((err) => console.log(err))
       .finally(() => {
