@@ -26,3 +26,19 @@ export const imageInput = popupPlace.querySelector(".place-form__item_el_link");
 export const cardsList = document.querySelector(".cards");
 export const zoomImg = document.querySelector(".popup__picture");
 export const popupCardDeleteButton = document.querySelector(".popup__delete-button");
+
+export const apiConfig = {
+   baseUrl: "https://nomoreparties.co/v1/plus-cohort-4",
+   headers: {
+      authorization: "61de9a72-5985-428d-ba82-f3cc85d60f49",
+      "Content-Type": "application/json",
+   },
+};
+export const popupConfig = {
+   formSelector: ".popup__form",
+   inputSelector: ".popup__input",
+   submitButtonSelector: ".popup__submit-button",
+   inactiveButtonClass: "popup__save-button_disabled",
+   inputErrorClass: "popup__input_error",
+   errorClass: "popup__form-error",
+};

@@ -4,8 +4,6 @@ export default class FormValidator {
     this._formElement = formElement;
   }
 
-
-
 _showInputError(inputElement) {
   const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
   errorElement.textContent = inputElement.validationMessage;
@@ -46,14 +44,11 @@ _setEventListeners = () => {
   this._formElement.addEventListener("submit", (evt) => {
     evt.preventDefault();
   });
-
-  //? эти две константы дублируются, но я не знаю как это исправить
   const inputList = Array.from(
     this._formElement.querySelectorAll(this._config.inputSelector)
   );
   const submitButton = this._formElement.querySelector(this._config.submitButtonSelector);
 
-  //add listeners for each input
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       this._checkInputValidity(inputElement);
@@ -61,22 +56,14 @@ _setEventListeners = () => {
     });
   });
   this._toggleButtonState(submitButton, inputList);
-  //validation reset
-  // this._formElement.addEventListener("reset", () => {
-  //   inputList.forEach((inputElement) => {
-  //     this._hideInputError(inputElement);
-  //     this._toggleButtonState(submitButton, inputList);
-  //   });
-  // });
 
 }
 
 enableValidation() {
   this._setEventListeners();
 }
-
   _resetValidation() {
-    //? эти две константы дублируются, но я не знаю как это исправить
+
     const inputList = Array.from(
       this._formElement.querySelectorAll(this._config.inputSelector)
     );
