@@ -29,7 +29,7 @@ import Card from "../components/card.js";
 import Section from "../components/Section.js"
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-// import PopupWithDelete from "../components/PopupWithDelete.js";
+import PopupWithDelete from "../components/PopupWithDelete.js";
 import UserInfo from "../components/UserInfo.js"
 
 import "../pages/index.css";
@@ -46,6 +46,8 @@ import Api from "./Api.js"
 const api = new Api(apiConfig)
 
 let user;
+let cardToDeleteId;
+let cardToDelete;
 
 const config = {
   formSelector: ".popup__form",
@@ -58,29 +60,33 @@ const config = {
 
 ;
 
-
-
 Promise.all([api.loadCards(), api.loadProfile()])
   .then(([cards, profile]) => {
-    console.log(profile)
+    // console.log(profile)
     const profileInfo = new UserInfo(profile);
     profileInfo.setUserInfo();
     user = profileInfo.getUserId();
     const cardList = new Section({
       data: cards,
       renderer: (item) => {
-          const card = new Card(item, user, '.card_template');
+          const card = new Card(item, user, '.card_template',{
+            deleteButtonHandler: (evt) => {
+              popupForDelete.openPopup();
+              cardToDelete = evt.target.closest(".card");
+              cardToDeleteId = cardToDelete.getAttribute("id", cardToDeleteId);
+            }
+          });
           const cardElement = card.generate();
           cardList.setItem(cardElement);
       }
   }, ".cards");
   cardList.renderItems()
-  console.log(cards)
+  // console.log(cards)
   })
   .catch((err) => {
     console.log(err);
   });
-// * Profile
+
 
 //Экземпляр класса для FormValidator
 const validationProfile = new FormValidator(config, formProfileElement);
@@ -150,7 +156,13 @@ const popupWithCard = new PopupWithForm(popupPlace, {
     placeSubmitButton.textContent = "Создание...";
     api.addNewCard(placeInput.value, imageInput.value)
       .then((res) => {
-        const newCard = new Card(res, user, '.card_template');
+
+        const newCard = new Card(res, user, '.card_template',{
+          deleteButtonHandler: (evt) => {
+            popupForDelete.openPopup();
+            cardToDelete = evt.target.closest(".card");
+            cardToDeleteId = cardToDelete.getAttribute("id", cardToDeleteId);
+          }});
         const cardSection = new Section({
           data: []
       }, ".cards");
@@ -179,6 +191,21 @@ buttonPlaceAdd.addEventListener("click", function () {
 const zoomedPicture = new PopupWithImage(popupImage);
 zoomedPicture.setEventListeners();
 
+// //Экземпляр класса для попапа удаления карточки
+const popupForDelete = new PopupWithDelete(popupDelete, {
+  submitHandler: () => {
+      api.removeCard(cardToDeleteId)
+      .then(() => {
+        cardToDelete.remove();
+        popupForDelete.closePopup();
+      })
+      .catch((err) => console.log(err));
+  }
+
+});
+
+popupForDelete.setEventListeners();
+
 
 export {
   popupProfile,
@@ -193,4 +220,5 @@ export {
   popupImage,
   api,
   zoomedPicture,
+  popupForDelete,
 };
