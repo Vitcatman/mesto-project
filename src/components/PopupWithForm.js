@@ -1,4 +1,4 @@
-import Popup from '../components/Popup.js';
+import Popup from "../components/Popup.js";
 import {
   nameInput,
   jobInput,
@@ -7,7 +7,7 @@ import {
 } from "../utils/constants.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, {submitHandler}) {
+  constructor(popupSelector, { submitHandler }) {
     super(popupSelector);
     this._submitHandler = submitHandler;
   }
@@ -17,16 +17,15 @@ export default class PopupWithForm extends Popup {
     this.openPopup();
   }
 
-  resetPlacePopup () {
+  resetPlacePopup() {
     this._popupSelector.querySelector(".place-form").reset();
-  };
+  }
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupSelector.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    this._submitHandler(evt);
-  })
-}
-
+    this._popupSelector.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._submitHandler(evt);
+    });
+  }
 }

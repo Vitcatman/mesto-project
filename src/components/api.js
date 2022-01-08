@@ -1,8 +1,6 @@
-
 export default class Api {
-
   constructor(apiConfig) {
-    this._apiConfig = apiConfig
+    this._apiConfig = apiConfig;
   }
 
   _response(res) {
@@ -16,7 +14,7 @@ export default class Api {
     return fetch(`${this._apiConfig.baseUrl}/users/me`, {
       headers: this._apiConfig.headers,
     }).then(this._response);
-  };
+  }
 
   loadCards() {
     return fetch(`${this._apiConfig.baseUrl}/cards`, {
@@ -44,28 +42,28 @@ export default class Api {
         link: link,
       }),
     }).then(this._response);
-  };
+  }
 
   placeLike(id) {
     return fetch(`${this._apiConfig.baseUrl}/cards/likes/${id}`, {
       method: "PUT",
       headers: this._apiConfig.headers,
     }).then(this._response);
-  };
+  }
 
   deleteLike(id) {
     return fetch(`${this._apiConfig.baseUrl}/cards/likes/${id}`, {
       method: "DELETE",
       headers: this._apiConfig.headers,
     }).then(this._response);
-  };
+  }
 
   removeCard(id) {
     return fetch(`${this._apiConfig.baseUrl}/cards/${id}`, {
       method: "DELETE",
       headers: this._apiConfig.headers,
     }).then(this._response);
-  };
+  }
 
   updateAvatar(picture) {
     return fetch(`${this._apiConfig.baseUrl}/users/me/avatar`, {
@@ -75,6 +73,5 @@ export default class Api {
         avatar: picture,
       }),
     }).then(this._response);
-  };
+  }
 }
-

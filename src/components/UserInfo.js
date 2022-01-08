@@ -1,18 +1,16 @@
-import{
+import {
   profileTitle,
   profileSubtitle,
   profileAvatar,
-} from '../utils/constants.js';
-
+} from "../utils/constants.js";
 
 export default class UserInfo {
   constructor(profile) {
-      this._name = profile.name;
-      this._about = profile.about;
-      this._avatar = profile.avatar;
-      this._id = profile._id
+    this._name = profile.name;
+    this._about = profile.about;
+    this._avatar = profile.avatar;
+    this._id = profile._id;
   }
-
 
   setUserInfo() {
     profileTitle.textContent = this._name;
@@ -22,9 +20,9 @@ export default class UserInfo {
 
   setUserId(id) {
     this._id = id;
-}
+  }
 
   getUserId() {
-      return this._id;
+    return this._id;
   }
 }
