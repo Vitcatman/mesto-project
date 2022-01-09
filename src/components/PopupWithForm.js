@@ -1,31 +1,35 @@
 import Popup from "../components/Popup.js";
-import {
-  nameInput,
-  jobInput,
-  profileTitle,
-  profileSubtitle,
-} from "../utils/constants.js";
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, { submitHandler }) {
     super(popupSelector);
     this._submitHandler = submitHandler;
-  }
-  openProfilePopup() {
-    nameInput.value = profileTitle.textContent;
-    jobInput.value = profileSubtitle.textContent;
-    this.openPopup();
+    // определяем форму
+    this._form = this._popupSelector.querySelector(".popup__form");
+    // достаём все элементы полей
+    this._inputList = this._form.querySelectorAll(".popup__input");
   }
 
-  resetPlacePopup() {
-    this._popup.querySelector(".place-form").reset();
+  _getInputValues() {
+    // создаём пустой объект
+    this._formValues = {};
+    // добавляем в этот объект значения всех полей
+    this._inputList.forEach((input) => {
+      this._formValues[input.name] = input.value;
+    });
+    return this._formValues;
+  }
+
+  closePopup() {
+    super.closePopup();
+    this._form.reset();
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._popup.addEventListener("submit", (evt) => {
+    this._popupSelector.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._submitHandler(evt);
+      this._submitHandler(this._getInputValues());
     });
   }
 }
