@@ -1,5 +1,3 @@
-import { cardsList, zoomImg } from "../utils/constants.js";
-
 export default class Card {
   constructor(
     cardData,
@@ -22,7 +20,7 @@ export default class Card {
 
   _getElement() {
     const cardElement = document
-      .querySelector(".card-template")
+      .querySelector(this._selector)
       .content.querySelector(".card")
       .cloneNode(true);
 
@@ -82,5 +80,3 @@ export default class Card {
     }
   }
 }
-
-export { cardsList, zoomImg };

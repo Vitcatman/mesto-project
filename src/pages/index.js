@@ -51,7 +51,7 @@ Promise.all([api.loadCards(), api.loadProfile()])
       {
         data: cards,
         renderer: (item) => {
-          const card = new Card(item, user, ".card_template", {
+          const card = new Card(item, user, ".card-template", {
             deleteButtonHandler: (evt) => {
               popupForDelete.openPopup();
               cardToDelete = evt.target.closest(".card");
@@ -125,7 +125,7 @@ popupWithProfile.setEventListeners();
 
 buttonProfileEdit.addEventListener("click", function () {
   // вызов метода для профиля
-  validationProfile.disablesValidation();
+  validationProfile.disableValidation();
   popupWithProfile.openProfilePopup();
 });
 // * Avatar
@@ -153,7 +153,7 @@ const popupWithAvatar = new PopupWithForm(popupAvatar, {
 popupWithAvatar.setEventListeners();
 
 buttonAvatarEdit.addEventListener("click", function () {
-  validationAvatarEdit.disablesValidation();
+  validationAvatarEdit.disableValidation();
   popupWithAvatar.openPopup();
 });
 // * AddCard
@@ -167,7 +167,7 @@ const popupWithCard = new PopupWithForm(popupPlace, {
     api
       .addNewCard(placeInput.value, imageInput.value)
       .then((res) => {
-        const newCard = new Card(res, user, ".card_template", {
+        const newCard = new Card(res, user, ".card-template", {
           deleteButtonHandler: (evt) => {
             popupForDelete.openPopup();
             cardToDelete = evt.target.closest(".card");
@@ -221,7 +221,7 @@ const popupWithCard = new PopupWithForm(popupPlace, {
 popupWithCard.setEventListeners();
 
 buttonPlaceAdd.addEventListener("click", function () {
-  validationPlaceAdd.disablesValidation();
+  validationPlaceAdd.disableValidation();
   popupWithCard.openPopup();
 });
 
