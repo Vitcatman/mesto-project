@@ -41,58 +41,60 @@ const api = new Api(apiConfig);
 let user;
 let cardToDeleteId;
 let cardToDelete;
+
+
+const cardList = new Section(
+  {
+    renderer: (item) => {
+      const card = new Card(item, user, ".card-template", {
+        deleteButtonHandler: (evt) => {
+          popupForDelete.openPopup();
+          cardToDelete = evt.target.closest(".card");
+          cardToDeleteId = cardToDelete.getAttribute("id", cardToDeleteId);
+        },
+
+        putLike: (likeCount, likeButton) => {
+          api
+            .placeLike(item._id)
+            .then((res) => {
+              likeCount.textContent = res.likes.length;
+              likeButton.classList.add("card__like-button_active");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+
+        deleteLike: (likeCount, likeButton) => {
+          api
+            .deleteLike(item._id)
+            .then((res) => {
+              likeCount.textContent = res.likes.length;
+              likeButton.classList.remove("card__like-button_active");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+
+        zoomPicture: (link, name) => {
+          zoomedPicture.showImagePopup(link, name);
+        },
+      });
+      return card.generate();
+    },
+  },
+  ".cards"
+);
+
+
 // * Создание карточек с сервера
 Promise.all([api.loadCards(), api.loadProfile()])
   .then(([cards, profile]) => {
     const profileInfo = new UserInfo(profile);
     profileInfo.setUserInfo();
     user = profileInfo.getUserId();
-    const cardList = new Section(
-      {
-        data: cards,
-        renderer: (item) => {
-          const card = new Card(item, user, ".card-template", {
-            deleteButtonHandler: (evt) => {
-              popupForDelete.openPopup();
-              cardToDelete = evt.target.closest(".card");
-              cardToDeleteId = cardToDelete.getAttribute("id", cardToDeleteId);
-            },
-
-            putLike: (likeCount, likeButton) => {
-              api
-                .placeLike(item._id)
-                .then((res) => {
-                  likeCount.textContent = res.likes.length;
-                  likeButton.classList.add("card__like-button_active");
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-            },
-
-            deleteLike: (likeCount, likeButton) => {
-              api
-                .deleteLike(item._id)
-                .then((res) => {
-                  likeCount.textContent = res.likes.length;
-                  likeButton.classList.remove("card__like-button_active");
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-            },
-
-            zoomPicture: (link, name) => {
-              zoomedPicture.showImagePopup(link, name);
-            },
-          });
-          const cardElement = card.generate();
-          cardList.setItem(cardElement);
-        },
-      },
-      ".cards"
-    );
-    cardList.renderItems();
+    cardList.renderItems(cards);
   })
   .catch((err) => {
     console.log(err);
@@ -167,48 +169,7 @@ const popupWithCard = new PopupWithForm(popupPlace, {
     api
       .addNewCard(placeInput.value, imageInput.value)
       .then((res) => {
-        const newCard = new Card(res, user, ".card-template", {
-          deleteButtonHandler: (evt) => {
-            popupForDelete.openPopup();
-            cardToDelete = evt.target.closest(".card");
-            cardToDeleteId = cardToDelete.getAttribute("id", cardToDeleteId);
-          },
-          putLike: (likeCount, likeButton) => {
-            api
-              .placeLike(res._id)
-              .then((res) => {
-                likeCount.textContent = res.likes.length;
-                likeButton.classList.add("card__like-button_active");
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          },
-
-          deleteLike: (likeCount, likeButton) => {
-            api
-              .deleteLike(res._id)
-              .then((res) => {
-                likeCount.textContent = res.likes.length;
-                likeButton.classList.remove("card__like-button_active");
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          },
-
-          zoomPicture: (link, name) => {
-            zoomedPicture.showImagePopup(link, name);
-          },
-        });
-        const cardSection = new Section(
-          {
-            data: [],
-          },
-          ".cards"
-        );
-        const cardElement = newCard.generate();
-        cardSection.addItem(cardElement);
+        cardList.addItem(res);
         popupWithCard.closePopup();
         popupWithCard.resetPlacePopup();
       })
