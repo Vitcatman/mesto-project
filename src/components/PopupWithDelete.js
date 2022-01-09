@@ -1,14 +1,15 @@
-import { popupCardDeleteButton } from "../utils/constants.js";
+// import { popupCardDeleteButton } from "../utils/constants.js";
 import Popup from "../components/Popup.js";
 
 export default class PopupWithDelete extends Popup {
-  constructor(popupSelector, { submitHandler }) {
+  constructor(popupSelector, popupCardDeleteButton, { submitHandler }) {
     super(popupSelector);
     this._submitHandler = submitHandler;
+    this._popupCardDeleteButton = popupCardDeleteButton
   }
 
   setEventListeners() {
     super.setEventListeners();
-    popupCardDeleteButton.addEventListener("click", this._submitHandler);
+    this._popupCardDeleteButton.addEventListener("click", this._submitHandler);
   }
 }

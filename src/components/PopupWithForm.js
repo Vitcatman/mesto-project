@@ -18,12 +18,12 @@ export default class PopupWithForm extends Popup {
   }
 
   resetPlacePopup() {
-    this._popupSelector.querySelector(".place-form").reset();
+    this._popup.querySelector(".place-form").reset();
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupSelector.addEventListener("submit", (evt) => {
+    this._popup.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._submitHandler(evt);
     });
