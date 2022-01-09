@@ -14,3 +14,4 @@ export default class PopupWithImage extends Popup {
     this.openPopup();
   }
 }
+// коммент

@@ -32,7 +32,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithDelete from "../components/PopupWithDelete.js";
 import UserInfo from "../components/UserInfo.js";
-
+// коммент
 import "./index.css";
 
 import Api from "../components/Api.js";
