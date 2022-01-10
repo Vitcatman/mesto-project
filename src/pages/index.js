@@ -44,24 +44,22 @@ const cardList = new Section(
           cardToDeleteId = cardToDelete.getAttribute("id", cardToDeleteId);
         },
 
-        putLike: (likeCount, likeButton) => {
+        putLike: () => {
           api
             .placeLike(item._id)
             .then((res) => {
-              likeCount.textContent = res.likes.length;
-              likeButton.classList.add("card__like-button_active");
+              card.updateLikes(res)
             })
             .catch((err) => {
               console.log(err);
             });
         },
 
-        deleteLike: (likeCount, likeButton) => {
+        deleteLike: () => {
           api
             .deleteLike(item._id)
             .then((res) => {
-              likeCount.textContent = res.likes.length;
-              likeButton.classList.remove("card__like-button_active");
+              card.updateLikes(res)
             })
             .catch((err) => {
               console.log(err);

@@ -74,9 +74,18 @@ export default class Card {
 
   _likeCard() {
     if (this._likeButton.classList.contains("card__like-button_active")) {
-      this._deleteLike(this._likeCount, this._likeButton);
+      this._deleteLike();
     } else {
-      this._putLike(this._likeCount, this._likeButton);
+      this._putLike();
+    }
+  }
+  updateLikes(res) {
+    if (this._likeButton.classList.contains("card__like-button_active")) {
+      this._likeCount.textContent = res.likes.length;
+      this._likeButton.classList.remove("card__like-button_active");
+    } else {
+      this._likeCount.textContent = res.likes.length;
+      this._likeButton.classList.add("card__like-button_active");
     }
   }
 }
