@@ -6,7 +6,6 @@ import {
   profileTitle,
   profileSubtitle,
   profileAvatar,
-  avatarInput,
   profileSubmitButton,
   placeSubmitButton,
   avatarSubmitButton,
@@ -15,8 +14,6 @@ import {
   nameInput,
   jobInput,
   formPlaceElement,
-  placeInput,
-  imageInput,
   apiConfig,
   popupConfig,
   popupCardDeleteButton,
@@ -28,7 +25,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithDelete from "../components/PopupWithDelete.js";
 import UserInfo from "../components/UserInfo.js";
-// коммент
 import "./index.css";
 
 import Api from "../components/Api.js";
@@ -37,7 +33,6 @@ const api = new Api(apiConfig);
 let user;
 let cardToDeleteId;
 let cardToDelete;
-
 
 const cardList = new Section(
   {
@@ -83,13 +78,13 @@ const cardList = new Section(
   ".cards"
 );
 
+const profileInfo = new UserInfo(profileTitle, profileSubtitle, profileAvatar);
 
 // * Создание карточек с сервера
 Promise.all([api.loadCards(), api.loadProfile()])
   .then(([cards, profile]) => {
-    const profileInfo = new UserInfo(profile);
-    profileInfo.setUserInfo();
-    user = profileInfo.getUserId();
+    profileInfo.setUserInfo(profile);
+    user = profileInfo.getUserId(profile);
     cardList.renderItems(cards);
   })
   .catch((err) => {
@@ -102,13 +97,12 @@ validationProfile.enableValidation();
 
 // * экземпляр класса для профиля
 const popupWithProfile = new PopupWithForm(".popup_type_profile", {
-  submitHandler: () => {
+  submitHandler: (dataValues) => {
     profileSubmitButton.textContent = "Сохранение...";
     api
-      .editProfile(nameInput.value, jobInput.value)
+      .editProfile(dataValues['profile-name'], dataValues['profile-about'])
       .then((profile) => {
-        profileTitle.textContent = profile.name;
-        profileSubtitle.textContent = profile.about;
+        profileInfo.setUserInfo({name: profile.name, about: profile.about, avatar: profile.avatar})
         popupWithProfile.closePopup();
       })
       .catch((err) => {
@@ -125,6 +119,9 @@ buttonProfileEdit.addEventListener("click", function () {
   // вызов метода для профиля
   validationProfile.disableValidation();
   popupWithProfile.openPopup();
+  const profileData = profileInfo.getUserInfo();
+  nameInput.value = profileData.name;
+  jobInput.value = profileData.about;
 });
 // * Avatar
 const validationAvatarEdit = new FormValidator(popupConfig, formAvatarElement);
@@ -132,12 +129,12 @@ validationAvatarEdit.enableValidation();
 
 // * экземпляр класса для аватара
 const popupWithAvatar = new PopupWithForm(".popup_type_avatar-add", {
-  submitHandler: () => {
+  submitHandler: (dataValues) => {
     avatarSubmitButton.textContent = "Сохранение...";
     api
-      .updateAvatar(avatarInput.value)
-      .then((res) => {
-        profileAvatar.src = res.avatar;
+      .updateAvatar(dataValues['avatar-link'])
+      .then((profile) => {
+        profileInfo.setUserInfo({name: profile.name, about: profile.about, avatar: profile.avatar})
         popupWithAvatar.closePopup();
       })
       .catch((err) => {
@@ -160,10 +157,11 @@ validationPlaceAdd.enableValidation();
 
 // * экземпляр класса для карточек
 const popupWithCard = new PopupWithForm(".popup_type_place-add", {
-  submitHandler: () => {
+  submitHandler: (dataValues) => {
+    console.log(dataValues)
     placeSubmitButton.textContent = "Создание...";
     api
-      .addNewCard(placeInput.value, imageInput.value)
+      .addNewCard(dataValues['place-name'], dataValues['place-link'])
       .then((res) => {
         cardList.addItem(res);
         popupWithCard.closePopup();

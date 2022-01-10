@@ -11,7 +11,6 @@ export const buttonPlaceAdd = document.querySelector(".profile__add-button");
 export const profileTitle = document.querySelector(".profile__title");
 export const profileSubtitle = document.querySelector(".profile__subtitle");
 export const profileAvatar = document.querySelector(".profile__avatar");
-export const avatarInput = document.querySelector(".avatar-form__item");
 export const profileSubmitButton = document.querySelector(".edit-form__button");
 export const placeSubmitButton = document.querySelector(".place-form__button");
 export const avatarSubmitButton = document.querySelector(
@@ -27,9 +26,8 @@ export const jobInput = popupProfile.querySelector(
   ".edit-form__item_element_about"
 );
 export const formPlaceElement = popupPlace.querySelector(".place-form");
-export const placeInput = popupPlace.querySelector(".place-form__item_el_name");
 export const cardTemplate = document.querySelector(".card-template");
-export const imageInput = popupPlace.querySelector(".place-form__item_el_link");
+
 
 export const cardsList = document.querySelector(".cards");
 export const zoomImg = document.querySelector(".popup__picture");
