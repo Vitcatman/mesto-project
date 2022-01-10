@@ -167,7 +167,6 @@ const popupWithCard = new PopupWithForm(".popup_type_place-add", {
       .then((res) => {
         cardList.addItem(res);
         popupWithCard.closePopup();
-        popupWithCard.resetPlacePopup();
       })
       .catch((err) => console.log(err))
       .finally(() => {
@@ -199,19 +198,3 @@ const popupForDelete = new PopupWithDelete(".popup_type_delete-card", popupCardD
   },
 });
 popupForDelete.setEventListeners();
-
-export {
-  // popupProfile,
-  // popupModals,
-  // popupAvatar,
-  // popupDelete,
-  nameInput,
-  jobInput,
-  profileTitle,
-  profileSubtitle,
-  // popupPlace,
-  // popupImage,
-  api,
-  zoomedPicture,
-  popupForDelete,
-};
