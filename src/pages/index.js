@@ -48,7 +48,7 @@ const cardList = new Section(
           api
             .placeLike(item._id)
             .then((res) => {
-              card.updateLikes(res)
+              card.updateLikes(res);
             })
             .catch((err) => {
               console.log(err);
@@ -59,7 +59,7 @@ const cardList = new Section(
           api
             .deleteLike(item._id)
             .then((res) => {
-              card.updateLikes(res)
+              card.updateLikes(res);
             })
             .catch((err) => {
               console.log(err);
@@ -96,18 +96,22 @@ validationProfile.enableValidation();
 // * экземпляр класса для профиля
 const popupWithProfile = new PopupWithForm(".popup_type_profile", {
   submitHandler: (dataValues) => {
-    profileSubmitButton.textContent = "Сохранение...";
+    popupWithProfile.renderLoading(true);
     api
-      .editProfile(dataValues['profile-name'], dataValues['profile-about'])
+      .editProfile(dataValues["profile-name"], dataValues["profile-about"])
       .then((profile) => {
-        profileInfo.setUserInfo({name: profile.name, about: profile.about, avatar: profile.avatar})
+        profileInfo.setUserInfo({
+          name: profile.name,
+          about: profile.about,
+          avatar: profile.avatar,
+        });
         popupWithProfile.closePopup();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        profileSubmitButton.textContent = "Сохранить";
+        popupWithProfile.renderLoading(false);
       });
   },
 });
@@ -128,18 +132,22 @@ validationAvatarEdit.enableValidation();
 // * экземпляр класса для аватара
 const popupWithAvatar = new PopupWithForm(".popup_type_avatar-add", {
   submitHandler: (dataValues) => {
-    avatarSubmitButton.textContent = "Сохранение...";
+    popupWithAvatar.renderLoading(true);
     api
-      .updateAvatar(dataValues['avatar-link'])
+      .updateAvatar(dataValues["avatar-link"])
       .then((profile) => {
-        profileInfo.setUserInfo({name: profile.name, about: profile.about, avatar: profile.avatar})
+        profileInfo.setUserInfo({
+          name: profile.name,
+          about: profile.about,
+          avatar: profile.avatar,
+        });
         popupWithAvatar.closePopup();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        avatarSubmitButton.textContent = "Сохранить";
+        popupWithAvatar.renderLoading(false);
       });
   },
 });
@@ -156,17 +164,16 @@ validationPlaceAdd.enableValidation();
 // * экземпляр класса для карточек
 const popupWithCard = new PopupWithForm(".popup_type_place-add", {
   submitHandler: (dataValues) => {
-    console.log(dataValues)
-    placeSubmitButton.textContent = "Создание...";
+    popupWithCard.renderLoading(true);
     api
-      .addNewCard(dataValues['place-name'], dataValues['place-link'])
+      .addNewCard(dataValues["place-name"], dataValues["place-link"])
       .then((res) => {
         cardList.addItem(res);
         popupWithCard.closePopup();
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        placeSubmitButton.textContent = "Создать";
+        popupWithCard.renderLoading(false);
       });
   },
 });
@@ -182,15 +189,19 @@ const zoomedPicture = new PopupWithImage(".popup_type_image", zoomImg);
 zoomedPicture.setEventListeners();
 
 // * Экземпляр класса для попапа удаления карточки
-const popupForDelete = new PopupWithDelete(".popup_type_delete-card", popupCardDeleteButton, {
-  submitHandler: () => {
-    api
-      .removeCard(cardToDeleteId)
-      .then(() => {
-        cardToDelete.remove();
-        popupForDelete.closePopup();
-      })
-      .catch((err) => console.log(err));
-  },
-});
+const popupForDelete = new PopupWithDelete(
+  ".popup_type_delete-card",
+  popupCardDeleteButton,
+  {
+    submitHandler: () => {
+      api
+        .removeCard(cardToDeleteId)
+        .then(() => {
+          cardToDelete.remove();
+          popupForDelete.closePopup();
+        })
+        .catch((err) => console.log(err));
+    },
+  }
+);
 popupForDelete.setEventListeners();

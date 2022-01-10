@@ -79,6 +79,7 @@ export default class Card {
       this._putLike();
     }
   }
+
   updateLikes(res) {
     if (this._likeButton.classList.contains("card__like-button_active")) {
       this._likeCount.textContent = res.likes.length;
